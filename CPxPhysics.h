@@ -15,7 +15,7 @@ extern "C" {
 		void* obj;
 	};
 
-	CPxAPI CSTRUCT CPxPhysics* CPxCreatePhysics(CPxU32 version, CSTRUCT CPxFoundation* cfoundation, const CSTRUCT CPxTolerancesScale& cscale, bool trackOutstandingAllocations = false, CSTRUCT CPxPvd* cpvd = NULL);
+	CPxAPI CSTRUCT CPxPhysics* CPxCreatePhysics(CSTRUCT CPxFoundation* cfoundation, CSTRUCT CPxTolerancesScale cscale, bool trackOutstandingAllocations, CSTRUCT CPxPvd* cpvd);
 	CPxAPI CSTRUCT CPxScene* CPxPhysics_createScene(CSTRUCT CPxPhysics*, CSTRUCT CPxSceneDesc*);
 	CPxAPI void CPxPhysics_release(CSTRUCT CPxPhysics*);
 

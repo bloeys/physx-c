@@ -11,7 +11,7 @@ CPxPvd* CPxCreatePvd(CPxFoundation* cpFoundation)
 	return cpPvd;
 }
 
-bool CPxCreatePvd_connect(CSTRUCT CPxPvd* cpPvd, CPxPvdTransport* cpPvdTr, CPxPvdInstrumentationFlag cppif)
+bool CPxPvd_connect(CSTRUCT CPxPvd* cpPvd, CPxPvdTransport* cpPvdTr, CPxPvdInstrumentationFlag cppif)
 {
 	physx::PxPvd* pvd = static_cast<physx::PxPvd*>(cpPvd->obj);
 	physx::PxPvdTransport* pvdTr = static_cast<physx::PxPvdTransport*>(cpPvdTr->obj);

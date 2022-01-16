@@ -63,7 +63,7 @@ extern "C" {
 	};
 
 	CPxAPI CSTRUCT CPxPvd* CPxCreatePvd(CSTRUCT CPxFoundation*);
-	CPxAPI bool CPxCreatePvd_connect(CSTRUCT CPxPvd*, CSTRUCT CPxPvdTransport*, CPxPvdInstrumentationFlag);
+	CPxAPI bool CPxPvd_connect(CSTRUCT CPxPvd*, CSTRUCT CPxPvdTransport*, CENUM CPxPvdInstrumentationFlag);
 	CPxAPI void CPxPvd_release(CSTRUCT CPxPvd* cpp);
 #ifdef __cplusplus
 }

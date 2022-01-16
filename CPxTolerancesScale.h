@@ -10,7 +10,7 @@ extern "C" {
 		CPxReal length, speed;
 	};
 
-	CPxAPI CSTRUCT CPxTolerancesScale NewCPxTolerancesScale(CPxReal length = 1.0f, CPxReal speed = 10.0f);
+	CPxAPI CSTRUCT CPxTolerancesScale NewCPxTolerancesScale(CPxReal length, CPxReal speed);
 
 #ifdef __cplusplus
 }
