@@ -24,6 +24,12 @@
     <ClCompile Include="CPxPvdTransport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPxTolerancesScale.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CPxPhysics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPxFoundation.h">
@@ -33,6 +39,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CPxPvd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPxTolerancesScale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPxPhysics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
