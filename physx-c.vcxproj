@@ -155,18 +155,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CPxCpuDispatcher.cpp" />
+    <ClCompile Include="CPxDefaultCpuDispatcher.cpp" />
+    <ClCompile Include="CPxDefaultSimulationFilterShader.cpp" />
     <ClCompile Include="CPxFoundation.cpp" />
     <ClCompile Include="CPxPvd.cpp" />
     <ClCompile Include="CPxPvdTransport.cpp" />
+    <ClCompile Include="CPxScene.cpp" />
+    <ClCompile Include="CPxSceneDesc.cpp" />
     <ClCompile Include="CPxTolerancesScale.cpp" />
     <ClCompile Include="CPxPhysics.cpp" />
+    <ClCompile Include="CPxVec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CPxCpuDispatcher.h" />
+    <ClInclude Include="CPxDefaultCpuDispatcher.h" />
+    <ClInclude Include="CPxDefaultSimulationFilterShader.h" />
     <ClInclude Include="CPxFoundation.h" />
     <ClInclude Include="CPxPvd.h" />
     <ClInclude Include="CPxPvdTransport.h" />
+    <ClInclude Include="CPxScene.h" />
+    <ClInclude Include="CPxSceneDesc.h" />
     <ClInclude Include="CPxTolerancesScale.h" />
     <ClInclude Include="CPxPhysics.h" />
+    <ClInclude Include="CPxVec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
