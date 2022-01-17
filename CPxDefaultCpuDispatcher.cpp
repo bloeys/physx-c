@@ -1,10 +1,10 @@
 #include<PxPhysicsAPI.h>
 #include "CPxDefaultCpuDispatcher.h"
 
-CPxDefaultCpuDispatcher* CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32* affinityMasks)
+CPxDefaultCpuDispatcher* CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32 affinityMasks)
 {
 	CPxDefaultCpuDispatcher* cdcd = (CPxDefaultCpuDispatcher*)malloc(sizeof(CPxDefaultCpuDispatcher));
-	cdcd->obj = physx::PxDefaultCpuDispatcherCreate(numThreads, affinityMasks);
+	cdcd->obj = physx::PxDefaultCpuDispatcherCreate(numThreads, &affinityMasks);
 	return cdcd;
 }
 
