@@ -155,13 +155,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CPxActor.cpp" />
     <ClCompile Include="CPxCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultSimulationFilterShader.cpp" />
     <ClCompile Include="CPxFoundation.cpp" />
+    <ClCompile Include="CPxMaterial.cpp" />
+    <ClCompile Include="CPxPlane.cpp" />
     <ClCompile Include="CPxPvd.cpp" />
     <ClCompile Include="CPxPvdSceneClient.cpp" />
     <ClCompile Include="CPxPvdTransport.cpp" />
+    <ClCompile Include="CPxRigidStatic.cpp" />
     <ClCompile Include="CPxScene.cpp" />
     <ClCompile Include="CPxSceneDesc.cpp" />
     <ClCompile Include="CPxTolerancesScale.cpp" />
@@ -169,13 +173,17 @@
     <ClCompile Include="CPxVec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CPxActor.h" />
     <ClInclude Include="CPxCpuDispatcher.h" />
     <ClInclude Include="CPxDefaultCpuDispatcher.h" />
     <ClInclude Include="CPxDefaultSimulationFilterShader.h" />
     <ClInclude Include="CPxFoundation.h" />
+    <ClInclude Include="CPxMaterial.h" />
+    <ClInclude Include="CPxPlane.h" />
     <ClInclude Include="CPxPvd.h" />
     <ClInclude Include="CPxPvdSceneClient.h" />
     <ClInclude Include="CPxPvdTransport.h" />
+    <ClInclude Include="CPxRigidStatic.h" />
     <ClInclude Include="CPxScene.h" />
     <ClInclude Include="CPxSceneDesc.h" />
     <ClInclude Include="CPxTolerancesScale.h" />

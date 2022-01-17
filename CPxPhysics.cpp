@@ -21,6 +21,14 @@ CPxScene* CPxPhysics_createScene(CPxPhysics* cp, CPxSceneDesc* csd)
 	return cs;
 }
 
+CPxMaterial* CPxPhysics_createMaterial(CPxPhysics* cp, CPxReal staticFriction, CPxReal dynamicFriction, CPxReal restitution)
+{
+	CPxMaterial* cm = (CPxMaterial*)malloc(sizeof(CPxMaterial));
+	cm->obj = static_cast<physx::PxPhysics*>(cp->obj)->createMaterial(staticFriction, dynamicFriction, restitution);
+
+	return cm;
+}
+
 
 void CPxPhysics_release(CPxPhysics* cpp)
 {

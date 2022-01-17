@@ -9,6 +9,12 @@ CPxPvdSceneClient* CPxScene_getScenePvdClient(CPxScene* cs)
 	return cPvdSceneClient;
 }
 
+void CPxScene_addActor(CPxScene* cScene, CPxActor* cActor)
+{
+	static_cast<physx::PxScene*>(cScene->obj)->
+		addActor(*static_cast<physx::PxActor*>(cActor->obj));
+}
+
 void CPxScene_release(CPxScene* cs)
 {
 	static_cast<physx::PxScene*>(cs->obj)->release();
