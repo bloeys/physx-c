@@ -160,6 +160,7 @@
     <ClCompile Include="CPxDefaultSimulationFilterShader.cpp" />
     <ClCompile Include="CPxFoundation.cpp" />
     <ClCompile Include="CPxPvd.cpp" />
+    <ClCompile Include="CPxPvdSceneClient.cpp" />
     <ClCompile Include="CPxPvdTransport.cpp" />
     <ClCompile Include="CPxScene.cpp" />
     <ClCompile Include="CPxSceneDesc.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="CPxDefaultSimulationFilterShader.h" />
     <ClInclude Include="CPxFoundation.h" />
     <ClInclude Include="CPxPvd.h" />
+    <ClInclude Include="CPxPvdSceneClient.h" />
     <ClInclude Include="CPxPvdTransport.h" />
     <ClInclude Include="CPxScene.h" />
     <ClInclude Include="CPxSceneDesc.h" />

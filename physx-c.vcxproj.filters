@@ -48,6 +48,9 @@
     <ClCompile Include="CPxScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPxPvdSceneClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPxFoundation.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CPxScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPxPvdSceneClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
