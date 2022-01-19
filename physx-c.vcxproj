@@ -140,9 +140,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;CPxAPI=__declspec(dllexport);CSTRUCT=;CPxReal=float;CPxU32=uint32_t;CENUM=;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;CPxAPI=__declspec(dllexport);CSTRUCT=;CPxReal=float;CPxU32=uint32_t;CENUM=;CPxInline=inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\user\Desktop\Dev\go\nmage-stuff\physx-c\vendor\physx-4.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\user\Desktop\Dev\go\nmage-stuff\physx-c\include;C:\Users\user\Desktop\Dev\go\nmage-stuff\physx-c\vendor\physx-4.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -156,10 +156,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CPxActor.cpp" />
+    <ClCompile Include="CPxBoxGeometry.cpp" />
     <ClCompile Include="CPxCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultSimulationFilterShader.cpp" />
     <ClCompile Include="CPxFoundation.cpp" />
+    <ClCompile Include="CPxGeometry.cpp" />
     <ClCompile Include="CPxMaterial.cpp" />
     <ClCompile Include="CPxPlane.cpp" />
     <ClCompile Include="CPxPvd.cpp" />
@@ -168,27 +170,31 @@
     <ClCompile Include="CPxRigidStatic.cpp" />
     <ClCompile Include="CPxScene.cpp" />
     <ClCompile Include="CPxSceneDesc.cpp" />
+    <ClCompile Include="CPxSphereGeometry.cpp" />
     <ClCompile Include="CPxTolerancesScale.cpp" />
     <ClCompile Include="CPxPhysics.cpp" />
     <ClCompile Include="CPxVec3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CPxActor.h" />
-    <ClInclude Include="CPxCpuDispatcher.h" />
-    <ClInclude Include="CPxDefaultCpuDispatcher.h" />
-    <ClInclude Include="CPxDefaultSimulationFilterShader.h" />
-    <ClInclude Include="CPxFoundation.h" />
-    <ClInclude Include="CPxMaterial.h" />
-    <ClInclude Include="CPxPlane.h" />
-    <ClInclude Include="CPxPvd.h" />
-    <ClInclude Include="CPxPvdSceneClient.h" />
-    <ClInclude Include="CPxPvdTransport.h" />
-    <ClInclude Include="CPxRigidStatic.h" />
-    <ClInclude Include="CPxScene.h" />
-    <ClInclude Include="CPxSceneDesc.h" />
-    <ClInclude Include="CPxTolerancesScale.h" />
-    <ClInclude Include="CPxPhysics.h" />
-    <ClInclude Include="CPxVec3.h" />
+    <ClInclude Include="include\CPxActor.h" />
+    <ClInclude Include="include\CPxBoxGeometry.h" />
+    <ClInclude Include="include\CPxCpuDispatcher.h" />
+    <ClInclude Include="include\CPxDefaultCpuDispatcher.h" />
+    <ClInclude Include="include\CPxDefaultSimulationFilterShader.h" />
+    <ClInclude Include="include\CPxFoundation.h" />
+    <ClInclude Include="include\CPxGeometry.h" />
+    <ClInclude Include="include\CPxMaterial.h" />
+    <ClInclude Include="include\CPxPhysics.h" />
+    <ClInclude Include="include\CPxPlane.h" />
+    <ClInclude Include="include\CPxPvd.h" />
+    <ClInclude Include="include\CPxPvdSceneClient.h" />
+    <ClInclude Include="include\CPxPvdTransport.h" />
+    <ClInclude Include="include\CPxRigidStatic.h" />
+    <ClInclude Include="include\CPxScene.h" />
+    <ClInclude Include="include\CPxSceneDesc.h" />
+    <ClInclude Include="include\CPxSphereGeometry.h" />
+    <ClInclude Include="include\CPxTolerancesScale.h" />
+    <ClInclude Include="include\CPxVec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

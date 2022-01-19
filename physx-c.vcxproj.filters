@@ -63,54 +63,72 @@
     <ClCompile Include="CPxActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPxSphereGeometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CPxGeometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CPxBoxGeometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CPxFoundation.h">
+    <ClInclude Include="include\CPxActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxPvdTransport.h">
+    <ClInclude Include="include\CPxCpuDispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxPvd.h">
+    <ClInclude Include="include\CPxDefaultCpuDispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxTolerancesScale.h">
+    <ClInclude Include="include\CPxDefaultSimulationFilterShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxPhysics.h">
+    <ClInclude Include="include\CPxFoundation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxSceneDesc.h">
+    <ClInclude Include="include\CPxGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxVec3.h">
+    <ClInclude Include="include\CPxMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxDefaultCpuDispatcher.h">
+    <ClInclude Include="include\CPxPhysics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxDefaultSimulationFilterShader.h">
+    <ClInclude Include="include\CPxPlane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxCpuDispatcher.h">
+    <ClInclude Include="include\CPxPvd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxScene.h">
+    <ClInclude Include="include\CPxPvdSceneClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxPvdSceneClient.h">
+    <ClInclude Include="include\CPxPvdTransport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxMaterial.h">
+    <ClInclude Include="include\CPxRigidStatic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxPlane.h">
+    <ClInclude Include="include\CPxScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxRigidStatic.h">
+    <ClInclude Include="include\CPxSceneDesc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPxActor.h">
+    <ClInclude Include="include\CPxSphereGeometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxTolerancesScale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxVec3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxBoxGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
