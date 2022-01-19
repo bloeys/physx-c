@@ -174,10 +174,12 @@
     <ClCompile Include="CPxSphereGeometry.cpp" />
     <ClCompile Include="CPxTolerancesScale.cpp" />
     <ClCompile Include="CPxPhysics.cpp" />
+    <ClCompile Include="CPxTransform.cpp" />
     <ClCompile Include="CPxVec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPxQuat.h" />
+    <ClInclude Include="CPxTransform.h" />
     <ClInclude Include="include\CPxActor.h" />
     <ClInclude Include="include\CPxBoxGeometry.h" />
     <ClInclude Include="include\CPxCpuDispatcher.h" />
