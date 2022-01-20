@@ -6,9 +6,9 @@
 // CPxSphereGeometry
 //
 
-CPxSphereGeometry CPxGeometry_toCPxSphere(CPxGeometry* cg)
+CPxSphereGeometry CPxGeometry_toCPxSphere(CPxGeometry cg)
 {
-	return *(CPxSphereGeometry*)cg->obj;
+	return *(CPxSphereGeometry*)cg.obj;
 }
 
 CPxGeometry CPxSphereGeometry_toCPxGeometry(CPxSphereGeometry* csg)
@@ -24,9 +24,9 @@ CPxGeometry CPxSphereGeometry_toCPxGeometry(CPxSphereGeometry* csg)
 // CPxBoxGeometry
 //
 
-CPxBoxGeometry CPxGeometry_toCPxBox(CPxGeometry* cg)
+CPxBoxGeometry CPxGeometry_toCPxBox(CPxGeometry cg)
 {
-	return *(CPxBoxGeometry*)cg->obj;
+	return *(CPxBoxGeometry*)cg.obj;
 }
 
 CPxGeometry CPxBoxGeometry_toCPxGeometry(CPxBoxGeometry* cbg)

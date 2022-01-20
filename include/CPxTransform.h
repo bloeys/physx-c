@@ -10,8 +10,8 @@ extern "C" {
 
 	struct CPxTransform
 	{
-		CPxVec3 p;
-		CPxQuat q;
+		CSTRUCT CPxVec3 p;
+		CSTRUCT CPxQuat q;
 	};
 
 	CPxAPI CPxInline CSTRUCT CPxTransform NewCPxTransform(CSTRUCT CPxVec3*, CSTRUCT CPxQuat*);

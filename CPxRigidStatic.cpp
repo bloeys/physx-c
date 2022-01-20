@@ -12,9 +12,9 @@ CPxRigidStatic* CPxCreatePlane(CPxPhysics* sdk, CPxPlane* plane, CPxMaterial* ma
 	return crs;
 }
 
-CPxActor* CPxRigidStatic_toCPxActor(CPxRigidStatic* crs)
+CPxActor CPxRigidStatic_toCPxActor(CPxRigidStatic* crs)
 {
-	CPxActor* ca = (CPxActor*)malloc(sizeof(CPxActor));
-	ca->obj = static_cast<physx::PxActor*>(crs->obj);
+	CPxActor ca;
+	ca.obj = static_cast<physx::PxActor*>(crs->obj);
 	return ca;
 }

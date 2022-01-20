@@ -24,13 +24,13 @@ extern "C" {
 	struct CPxGeometry
 	{
 		void* obj;
-		CPxGeometryType type;
+		CENUM CPxGeometryType type;
 	};
 
-	CPxAPI CPxInline CSTRUCT CPxSphereGeometry CPxGeometry_toCPxSphere(CSTRUCT CPxGeometry*);
+	CPxAPI CPxInline CSTRUCT CPxSphereGeometry CPxGeometry_toCPxSphere(CSTRUCT CPxGeometry);
 	CPxAPI CPxInline CSTRUCT CPxGeometry CPxSphereGeometry_toCPxGeometry(CSTRUCT CPxSphereGeometry*);
 
-	CPxAPI CPxInline CSTRUCT CPxBoxGeometry CPxGeometry_toCPxBox(CSTRUCT CPxGeometry*);
+	CPxAPI CPxInline CSTRUCT CPxBoxGeometry CPxGeometry_toCPxBox(CSTRUCT CPxGeometry);
 	CPxAPI CPxInline CSTRUCT CPxGeometry CPxBoxGeometry_toCPxGeometry(CSTRUCT CPxBoxGeometry*);
 
 

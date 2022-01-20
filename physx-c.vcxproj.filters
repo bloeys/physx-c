@@ -78,9 +78,21 @@
     <ClCompile Include="CPxTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPxRigidDynamic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CExtSimpleFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CExtSimpleFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\CPxActor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxBoxGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\CPxCpuDispatcher.h">
@@ -116,6 +128,12 @@
     <ClInclude Include="include\CPxPvdTransport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\CPxQuat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxRigidDynamic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\CPxRigidStatic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -131,16 +149,10 @@
     <ClInclude Include="include\CPxTolerancesScale.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\CPxTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\CPxVec3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CPxBoxGeometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CPxQuat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CPxTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

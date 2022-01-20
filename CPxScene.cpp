@@ -9,11 +9,10 @@ CPxPvdSceneClient* CPxScene_getScenePvdClient(CPxScene* cs)
 	return cPvdSceneClient;
 }
 
-void CPxScene_addActor(CPxScene* cScene, CPxActor* cActor)
+void CPxScene_addActor(CPxScene* cScene, CPxActor cActor)
 {
-
 	static_cast<physx::PxScene*>(cScene->obj)->
-		addActor(*static_cast<physx::PxActor*>(cActor->obj));
+		addActor(*static_cast<physx::PxActor*>(cActor.obj));
 }
 
 void CPxScene_simulate(CPxScene* cs, CPxReal elapsedTime)

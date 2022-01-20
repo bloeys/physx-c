@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CExtSimpleFactory.cpp" />
     <ClCompile Include="CPxActor.cpp" />
     <ClCompile Include="CPxBoxGeometry.cpp" />
     <ClCompile Include="CPxCpuDispatcher.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="CPxPvdSceneClient.cpp" />
     <ClCompile Include="CPxPvdTransport.cpp" />
     <ClCompile Include="CPxQuat.cpp" />
+    <ClCompile Include="CPxRigidDynamic.cpp" />
     <ClCompile Include="CPxRigidStatic.cpp" />
     <ClCompile Include="CPxScene.cpp" />
     <ClCompile Include="CPxSceneDesc.cpp" />
@@ -178,8 +180,7 @@
     <ClCompile Include="CPxVec3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CPxQuat.h" />
-    <ClInclude Include="CPxTransform.h" />
+    <ClInclude Include="include\CExtSimpleFactory.h" />
     <ClInclude Include="include\CPxActor.h" />
     <ClInclude Include="include\CPxBoxGeometry.h" />
     <ClInclude Include="include\CPxCpuDispatcher.h" />
@@ -193,11 +194,14 @@
     <ClInclude Include="include\CPxPvd.h" />
     <ClInclude Include="include\CPxPvdSceneClient.h" />
     <ClInclude Include="include\CPxPvdTransport.h" />
+    <ClInclude Include="include\CPxQuat.h" />
+    <ClInclude Include="include\CPxRigidDynamic.h" />
     <ClInclude Include="include\CPxRigidStatic.h" />
     <ClInclude Include="include\CPxScene.h" />
     <ClInclude Include="include\CPxSceneDesc.h" />
     <ClInclude Include="include\CPxSphereGeometry.h" />
     <ClInclude Include="include\CPxTolerancesScale.h" />
+    <ClInclude Include="include\CPxTransform.h" />
     <ClInclude Include="include\CPxVec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
