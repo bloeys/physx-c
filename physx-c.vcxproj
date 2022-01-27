@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;CPxAPI=__declspec(dllexport);CSTRUCT=;CPxReal=float;CPxU32=uint32_t;CENUM=;CPxInline=inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\user\Desktop\Dev\go\nmage-stuff\physx-c\include;C:\Users\user\Desktop\Dev\go\nmage-stuff\physx-c\vendor\physx-4.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\user\Desktop\Dev\nmage-stuff\physx-c\include;C:\Users\user\Desktop\Dev\nmage-stuff\physx-c\vendor\physx-4.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -150,7 +150,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\user\Desktop\Dev\go\nmage-stuff\physx-c\vendor\physx-4.1.2\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\user\Desktop\Dev\nmage-stuff\physx-c\vendor\physx-4.1.2\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>PhysX_64.lib;PhysXCommon_64.lib;PhysXCooking_64.lib;PhysXFoundation_6.lib;PhysXExtensions_static_64.lib;PhysXPvdSDK_static_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -158,6 +158,7 @@
     <ClCompile Include="CExtSimpleFactory.cpp" />
     <ClCompile Include="CPxActor.cpp" />
     <ClCompile Include="CPxBoxGeometry.cpp" />
+    <ClCompile Include="CPxCapsuleGeometry.cpp" />
     <ClCompile Include="CPxCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultSimulationFilterShader.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="include\CExtSimpleFactory.h" />
     <ClInclude Include="include\CPxActor.h" />
     <ClInclude Include="include\CPxBoxGeometry.h" />
+    <ClInclude Include="include\CPxCapsuleGeometry.h" />
     <ClInclude Include="include\CPxCpuDispatcher.h" />
     <ClInclude Include="include\CPxDefaultCpuDispatcher.h" />
     <ClInclude Include="include\CPxDefaultSimulationFilterShader.h" />

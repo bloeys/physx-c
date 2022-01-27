@@ -5,7 +5,6 @@ physx::PxRigidDynamic* DoPxCreateDynamic(CPxPhysics& sdk, const CPxTransform& tr
 
 CPxRigidDynamic* CPxCreateDynamic(CPxPhysics* sdk, CPxTransform* transform, CPxGeometry geometry, CPxMaterial* material, CPxReal density, CPxTransform* shapeOffset)
 {
-
 	CPxRigidDynamic* crd = (CPxRigidDynamic*)malloc(sizeof(CPxRigidDynamic));
 
 	switch (geometry.type)
@@ -16,18 +15,24 @@ CPxRigidDynamic* CPxCreateDynamic(CPxPhysics* sdk, CPxTransform* transform, CPxG
 	case CPxGeometryType_ePLANE:
 		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxPlaneGeometry(), *material, density, *shapeOffset);
 		break;
-		/*case CPxGeometryType_eCAPSULE:
-			break;*/
+	case CPxGeometryType_eCAPSULE:
+	{
+		CPxCapsuleGeometry* ccg = static_cast<CPxCapsuleGeometry*>(geometry.obj);
+		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxCapsuleGeometry(ccg->radius, ccg->halfHeight), *material, density, *shapeOffset);
+	}
+	break;
 	case CPxGeometryType_eBOX:
+	{
 		CPxBoxGeometry* cbg = static_cast<CPxBoxGeometry*>(geometry.obj);
 		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxBoxGeometry(cbg->hx, cbg->hy, cbg->hz), *material, density, *shapeOffset);
+	}
+	break;
+	/*case CPxGeometryType_eCONVEXMESH:
 		break;
-		/*case CPxGeometryType_eCONVEXMESH:
-			break;
-		case CPxGeometryType_eTRIANGLEMESH:
-			break;
-		case CPxGeometryType_eHEIGHTFIELD:
-			break;*/
+	case CPxGeometryType_eTRIANGLEMESH:
+		break;
+	case CPxGeometryType_eHEIGHTFIELD:
+		break;*/
 	}
 
 	return crd;
