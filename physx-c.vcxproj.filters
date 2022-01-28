@@ -161,5 +161,14 @@
     <ClInclude Include="include\CPxCapsuleGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\CPxForceMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxRigidBodyFlag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxRigidDynamicLockFlag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

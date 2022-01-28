@@ -8,3 +8,61 @@ CPxActor CPxRigidDynamic_toCPxActor(CPxRigidDynamic* crd)
 
 	return ca;
 }
+
+void CPxRigidDynamic_addForce(CPxRigidDynamic* crd, CPxVec3* force, CPxForceMode fmode, bool autoAwake)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->addForce(physx::PxVec3(force->x, force->y, force->z), static_cast<physx::PxForceMode::Enum>(fmode), autoAwake);
+}
+
+void CPxRigidDynamic_addTorque(CPxRigidDynamic* crd, CPxVec3* torque, CPxForceMode fmode, bool autoAwake)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->addTorque(physx::PxVec3(torque->x, torque->y, torque->z), static_cast<physx::PxForceMode::Enum>(fmode), autoAwake);
+}
+
+CPxVec3 CPxRigidDynamic_getLinearVelocity(CPxRigidDynamic* crd)
+{
+	physx::PxVec3 v = static_cast<physx::PxRigidDynamic*>(crd->obj)->getLinearVelocity();
+	return NewCPxVec3(v.x, v.y, v.z);
+}
+
+void CPxRigidDynamic_setMass(CPxRigidDynamic* crd, CPxReal mass)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setMass(mass);
+}
+
+CPxReal CPxRigidDynamic_getMass(CPxRigidDynamic* crd)
+{
+	return static_cast<physx::PxRigidDynamic*>(crd->obj)->getMass();
+}
+
+void CPxRigidDynamic_setRigidBodyFlag(CPxRigidDynamic* crd, CPxRigidBodyFlag flag, bool value)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setRigidBodyFlag(static_cast<physx::PxRigidBodyFlag::Enum>(flag), value);
+}
+
+void CPxRigidDynamic_setRigidBodyFlags(CPxRigidDynamic* crd, CPxRigidBodyFlag flags)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setRigidBodyFlags(static_cast<physx::PxRigidBodyFlag::Enum>(flags));
+}
+
+CPxRigidBodyFlag CPxRigidDynamic_getRigidBodyFlags(CPxRigidDynamic* crd)
+{
+	uint32_t x = static_cast<physx::PxRigidDynamic*>(crd->obj)->getRigidBodyFlags();
+	return static_cast<CPxRigidBodyFlag>(x);
+}
+
+void CPxRigidDynamic_setRigidDynamicLockFlag(CPxRigidDynamic* crd, CPxRigidDynamicLockFlag flag, bool value)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setRigidDynamicLockFlag(static_cast<physx::PxRigidDynamicLockFlag::Enum>(flag), value);
+}
+
+void CPxRigidDynamic_setRigidDynamicLockFlags(CPxRigidDynamic* crd, CPxRigidDynamicLockFlag flags)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setRigidDynamicLockFlags(static_cast<physx::PxRigidDynamicLockFlag::Enum>(flags));
+}
+
+CPxRigidDynamicLockFlag CPxRigidDynamic_getRigidDynamicLockFlags(CPxRigidDynamic* crd)
+{
+	uint32_t x = static_cast<physx::PxRigidDynamic*>(crd->obj)->getRigidDynamicLockFlags();
+	return static_cast<CPxRigidDynamicLockFlag>(x);
+}

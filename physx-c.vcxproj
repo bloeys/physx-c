@@ -188,6 +188,7 @@
     <ClInclude Include="include\CPxCpuDispatcher.h" />
     <ClInclude Include="include\CPxDefaultCpuDispatcher.h" />
     <ClInclude Include="include\CPxDefaultSimulationFilterShader.h" />
+    <ClInclude Include="include\CPxForceMode.h" />
     <ClInclude Include="include\CPxFoundation.h" />
     <ClInclude Include="include\CPxGeometry.h" />
     <ClInclude Include="include\CPxMaterial.h" />
@@ -197,7 +198,9 @@
     <ClInclude Include="include\CPxPvdSceneClient.h" />
     <ClInclude Include="include\CPxPvdTransport.h" />
     <ClInclude Include="include\CPxQuat.h" />
+    <ClInclude Include="include\CPxRigidBodyFlag.h" />
     <ClInclude Include="include\CPxRigidDynamic.h" />
+    <ClInclude Include="include\CPxRigidDynamicLockFlag.h" />
     <ClInclude Include="include\CPxRigidStatic.h" />
     <ClInclude Include="include\CPxScene.h" />
     <ClInclude Include="include\CPxSceneDesc.h" />
