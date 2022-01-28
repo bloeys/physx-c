@@ -26,6 +26,32 @@ CPxVec3 CPxRigidDynamic_getLinearVelocity(CPxRigidDynamic* crd)
 	return NewCPxVec3(v.x, v.y, v.z);
 }
 
+CPxVec3 CPxRigidDynamic_getAngularVelocity(CPxRigidDynamic* crd)
+{
+	physx::PxVec3 v = static_cast<physx::PxRigidDynamic*>(crd->obj)->getAngularVelocity();
+	return NewCPxVec3(v.x, v.y, v.z);
+}
+
+void CPxRigidDynamic_setLinearDamping(CPxRigidDynamic* crd, CPxReal damping)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setLinearDamping(damping);
+}
+
+void CPxRigidDynamic_setAngularDamping(CPxRigidDynamic* crd, CPxReal damping)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setAngularDamping(damping);
+}
+
+CPxReal CPxRigidDynamic_getLinearDamping(CPxRigidDynamic* crd)
+{
+	return static_cast<physx::PxRigidDynamic*>(crd->obj)->getLinearDamping();
+}
+
+CPxReal CPxRigidDynamic_getAngularDamping(CPxRigidDynamic* crd)
+{
+	return static_cast<physx::PxRigidDynamic*>(crd->obj)->getAngularDamping();
+}
+
 void CPxRigidDynamic_setMass(CPxRigidDynamic* crd, CPxReal mass)
 {
 	static_cast<physx::PxRigidDynamic*>(crd->obj)->setMass(mass);

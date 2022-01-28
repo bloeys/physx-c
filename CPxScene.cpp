@@ -48,9 +48,9 @@ void CPxScene_release(CPxScene* cs)
 {
 	static_cast<physx::PxScene*>(cs->obj)->release();
 
-	physx::PxDefaultAllocator pa;
 	if (cs->scratchBuffer != NULL)
 	{
+		physx::PxDefaultAllocator pa;
 		pa.deallocate(cs->scratchBuffer);
 		cs->scratchBuffer = NULL;
 	}

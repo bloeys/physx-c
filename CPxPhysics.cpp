@@ -16,6 +16,8 @@ CPxPhysics* CPxCreatePhysics(CPxFoundation* cfoundation, CPxTolerancesScale csca
 CPxScene* CPxPhysics_createScene(CPxPhysics* cp, CPxSceneDesc* csd)
 {
 	CPxScene* cs = (CPxScene*)malloc(sizeof(CPxScene));
+	cs->scratchBuffer = NULL;
+	cs->scratchBufferSize = 0;
 	cs->obj = static_cast<physx::PxPhysics*>(cp->obj)->createScene(*static_cast<physx::PxSceneDesc*>(csd->obj));
 
 	return cs;
