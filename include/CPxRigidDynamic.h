@@ -3,6 +3,7 @@
 
 #include "CPxActor.h"
 #include "CPxVec3.h"
+#include "CPxTransform.h"
 #include "CPxForceMode.h"
 #include "CPxRigidBodyFlag.h"
 #include "CPxRigidDynamicLockFlag.h"
@@ -30,7 +31,11 @@ extern "C" {
 
 	CPxAPI void CPxRigidDynamic_setRigidDynamicLockFlag(CSTRUCT CPxRigidDynamic* crd, CENUM CPxRigidDynamicLockFlag flag, bool value);
 	CPxAPI void CPxRigidDynamic_setRigidDynamicLockFlags(CSTRUCT CPxRigidDynamic* crd, CENUM CPxRigidDynamicLockFlag flags);
-	CENUM CPxRigidDynamicLockFlag CPxRigidDynamic_getRigidDynamicLockFlags(CSTRUCT CPxRigidDynamic* crd);
+	CPxAPI CENUM CPxRigidDynamicLockFlag CPxRigidDynamic_getRigidDynamicLockFlags(CSTRUCT CPxRigidDynamic* crd);
+
+	CPxAPI void CPxRigidDynamic_putToSleep(CSTRUCT CPxRigidDynamic* crd);
+	CPxAPI CSTRUCT CPxTransform CPxRigidDynamic_getGlobalPose(CSTRUCT CPxRigidDynamic* crd);
+	CPxAPI void CPxRigidDynamic_setGlobalPose(CSTRUCT CPxRigidDynamic* crd, CSTRUCT CPxTransform* tr, bool autoAwake);
 
 #ifdef __cplusplus
 }

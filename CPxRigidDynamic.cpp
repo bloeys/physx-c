@@ -1,5 +1,6 @@
 #include <PxPhysicsAPI.h>
 #include "CPxRigidDynamic.h"
+#include "CPxTransformHelpers.h"
 
 CPxActor CPxRigidDynamic_toCPxActor(CPxRigidDynamic* crd)
 {
@@ -65,4 +66,20 @@ CPxRigidDynamicLockFlag CPxRigidDynamic_getRigidDynamicLockFlags(CPxRigidDynamic
 {
 	uint32_t x = static_cast<physx::PxRigidDynamic*>(crd->obj)->getRigidDynamicLockFlags();
 	return static_cast<CPxRigidDynamicLockFlag>(x);
+}
+
+void CPxRigidDynamic_putToSleep(CPxRigidDynamic* crd)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->putToSleep();
+}
+
+CPxTransform CPxRigidDynamic_getGlobalPose(CPxRigidDynamic* crd)
+{
+	physx::PxTransform tr = static_cast<physx::PxRigidDynamic*>(crd->obj)->getGlobalPose();
+	return PxTransform_toCPxTransform(tr);
+}
+
+void CPxRigidDynamic_setGlobalPose(CPxRigidDynamic* crd, CPxTransform* tr, bool autoAwake)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setGlobalPose(CPxTransform_toPxTransform(*tr), autoAwake);
 }
