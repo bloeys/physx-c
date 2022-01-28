@@ -115,3 +115,14 @@ void CPxRigidDynamic_setGlobalPose(CPxRigidDynamic* crd, CPxTransform* tr, bool 
 {
 	static_cast<physx::PxRigidDynamic*>(crd->obj)->setGlobalPose(CPxTransform_toPxTransform(*tr), autoAwake);
 }
+
+CPxTransform CPxRigidDynamic_getCMassLocalPose(CPxRigidDynamic* crd)
+{
+	physx::PxTransform tr = static_cast<physx::PxRigidDynamic*>(crd->obj)->getCMassLocalPose();
+	return PxTransform_toCPxTransform(tr);
+}
+
+void CPxRigidDynamic_setCMassLocalPose(CPxRigidDynamic* crd, CPxTransform* tr)
+{
+	static_cast<physx::PxRigidDynamic*>(crd->obj)->setCMassLocalPose(CPxTransform_toPxTransform(*tr));
+}
