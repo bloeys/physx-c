@@ -2,6 +2,7 @@
 #define CPxRigidDynamic_H
 
 #include "CPxActor.h"
+#include "CPxRigidActor.h"
 #include "CPxVec3.h"
 #include "CPxTransform.h"
 #include "CPxForceMode.h"
@@ -18,6 +19,8 @@ extern "C" {
 	};
 
 	CPxAPI CSTRUCT CPxActor CPxRigidDynamic_toCPxActor(CSTRUCT CPxRigidDynamic*);
+	CPxAPI CSTRUCT CPxRigidActor CPxRigidDynamic_toCPxRigidActor(CSTRUCT CPxRigidDynamic*);
+
 	CPxAPI void CPxRigidDynamic_addForce(CSTRUCT CPxRigidDynamic* crd, CSTRUCT CPxVec3* force, CENUM CPxForceMode fmode, bool autoAwake);
 	CPxAPI void CPxRigidDynamic_addTorque(CSTRUCT CPxRigidDynamic* crd, CSTRUCT CPxVec3* torque, CENUM CPxForceMode fmode, bool autoAwake);
 

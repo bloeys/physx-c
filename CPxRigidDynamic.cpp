@@ -6,7 +6,13 @@ CPxActor CPxRigidDynamic_toCPxActor(CPxRigidDynamic* crd)
 {
 	CPxActor ca;
 	ca.obj = static_cast<physx::PxActor*>(crd->obj);
+	return ca;
+}
 
+CPxRigidActor CPxRigidDynamic_toCPxRigidActor(CPxRigidDynamic* crd)
+{
+	CPxRigidActor ca;
+	ca.obj = static_cast<physx::PxRigidActor*>(crd->obj);
 	return ca;
 }
 
