@@ -1,5 +1,6 @@
 #include <PxPhysicsAPI.h>
 #include "CPxPhysics.h"
+#include "CPxTransformHelpers.h"
 
 CPxPhysics* CPxCreatePhysics(CPxFoundation* cfoundation, CPxTolerancesScale cscale, bool trackOutstandingAllocations, CPxPvd* cpvd)
 {
@@ -31,6 +32,19 @@ CPxMaterial* CPxPhysics_createMaterial(CPxPhysics* cp, CPxReal staticFriction, C
 	return cm;
 }
 
+CPxRigidDynamic* CPxPhysics_createRigidDynamic(CPxPhysics* cp, CPxTransform* ctr)
+{
+	CPxRigidDynamic* crd = (CPxRigidDynamic*)malloc(sizeof(CPxRigidDynamic));
+	crd->obj = static_cast<physx::PxPhysics*>(cp->obj)->createRigidDynamic(CPxTransform_toPxTransform(*ctr));
+	return crd;
+}
+
+CPxRigidStatic* CPxPhysics_createRigidStatic(CPxPhysics* cp, CPxTransform* ctr)
+{
+	CPxRigidStatic* crs = (CPxRigidStatic*)malloc(sizeof(CPxRigidStatic));
+	crs->obj = static_cast<physx::PxPhysics*>(cp->obj)->createRigidStatic(CPxTransform_toPxTransform(*ctr));
+	return crs;
+}
 
 void CPxPhysics_release(CPxPhysics* cpp)
 {

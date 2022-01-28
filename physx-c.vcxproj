@@ -177,6 +177,7 @@
     <ClCompile Include="CPxScene.cpp" />
     <ClCompile Include="CPxSceneDesc.cpp" />
     <ClCompile Include="CPxShape.cpp" />
+    <ClCompile Include="CPxSimpleFactory.cpp" />
     <ClCompile Include="CPxSphereGeometry.cpp" />
     <ClCompile Include="CPxTolerancesScale.cpp" />
     <ClCompile Include="CPxPhysics.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="include\CPxSceneDesc.h" />
     <ClInclude Include="include\CPxShape.h" />
     <ClInclude Include="include\CPxShapeFlags.h" />
+    <ClInclude Include="include\CPxSimpleFactory.h" />
     <ClInclude Include="include\CPxSphereGeometry.h" />
     <ClInclude Include="include\CPxTolerancesScale.h" />
     <ClInclude Include="include\CPxTransform.h" />
