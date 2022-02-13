@@ -20,6 +20,21 @@ void CPxScene_simulate(CPxScene* cs, CPxReal elapsedTime)
 	static_cast<physx::PxScene*>(cs->obj)->simulate(elapsedTime, 0, cs->scratchBuffer, cs->scratchBufferSize, true);
 }
 
+void CPxScene_collide(CPxScene* cs, CPxReal elapsedTime)
+{
+	static_cast<physx::PxScene*>(cs->obj)->collide(elapsedTime, 0, cs->scratchBuffer, cs->scratchBufferSize, true);
+}
+
+bool CPxScene_fetchCollision(CPxScene* cs, bool block)
+{
+	return static_cast<physx::PxScene*>(cs->obj)->fetchCollision(block);
+}
+
+void CPxScene_advance(CPxScene* cs)
+{
+	static_cast<physx::PxScene*>(cs->obj)->advance();
+}
+
 bool CPxScene_fetchResults(CPxScene* cs, bool block, CPxU32* errorState)
 {
 	return static_cast<physx::PxScene*>(cs->obj)->fetchResults(block, errorState);
