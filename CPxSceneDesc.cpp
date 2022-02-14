@@ -62,8 +62,7 @@ public:
 			cph.pairs[i].shapes[1].obj = pairHeader.pairs[i].shapes[1];
 		}
 
-		physx::PxContactPairHeader nonConstHeader(pairHeader);
-		onContactCb(&nonConstHeader);
+		onContactCb(&cph);
 	}
 };
 
