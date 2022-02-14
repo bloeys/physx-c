@@ -38,9 +38,9 @@ public:
 			CPxDealloc(contactPairsBuffer);
 			contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * nbPairs);
 			contactPairsBufferSize = nbPairs;
-			cph.pairs = contactPairsBuffer;
 		}
 
+		cph.pairs = contactPairsBuffer;
 		for (int i = 0; i < nbPairs; i++)
 		{
 			cph.pairs[i].contactCount = pairHeader.pairs[i].contactCount;
