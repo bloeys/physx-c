@@ -39,9 +39,6 @@
     <ClCompile Include="CPxDefaultCpuDispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CPxDefaultSimulationFilterShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CPxCpuDispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,6 +96,9 @@
     <ClCompile Include="CPxSimpleFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPxFilterData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CExtSimpleFactory.h">
@@ -114,9 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\CPxDefaultCpuDispatcher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CPxDefaultSimulationFilterShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\CPxFoundation.h">
@@ -199,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="include\CPxSimpleFactory.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxFilterData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPxDefaultAllocator.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

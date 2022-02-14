@@ -161,7 +161,7 @@
     <ClCompile Include="CPxCapsuleGeometry.cpp" />
     <ClCompile Include="CPxCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultCpuDispatcher.cpp" />
-    <ClCompile Include="CPxDefaultSimulationFilterShader.cpp" />
+    <ClCompile Include="CPxFilterData.cpp" />
     <ClCompile Include="CPxFoundation.cpp" />
     <ClCompile Include="CPxGeometry.cpp" />
     <ClCompile Include="CPxMaterial.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="include\CPxCapsuleGeometry.h" />
     <ClInclude Include="include\CPxCpuDispatcher.h" />
     <ClInclude Include="include\CPxDefaultCpuDispatcher.h" />
-    <ClInclude Include="include\CPxDefaultSimulationFilterShader.h" />
+    <ClInclude Include="include\CPxFilterData.h" />
     <ClInclude Include="include\CPxForceMode.h" />
     <ClInclude Include="include\CPxFoundation.h" />
     <ClInclude Include="include\CPxGeometry.h" />
@@ -218,6 +218,7 @@
     <ClInclude Include="include\CPxTolerancesScale.h" />
     <ClInclude Include="include\CPxTransform.h" />
     <ClInclude Include="include\CPxVec3.h" />
+    <ClInclude Include="CPxDefaultAllocator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

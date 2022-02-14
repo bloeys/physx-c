@@ -1,5 +1,6 @@
 #include <PxPhysicsAPI.h>
 #include "CPxFoundation.h"
+#include "CPxDefaultAllocator.h"
 
 class SimpleErrorCallback : public physx::PxErrorCallback
 {
@@ -14,10 +15,9 @@ CPxFoundation* CPxCreateFoundation()
 {
 	CPxFoundation* cpf = (CPxFoundation*)malloc(sizeof(*cpf));
 
-	static physx::PxDefaultAllocator allocCallback;
 	static SimpleErrorCallback allocErrCallback;
 
-	cpf->obj = PxCreateFoundation(PX_PHYSICS_VERSION, allocCallback, allocErrCallback);
+	cpf->obj = PxCreateFoundation(PX_PHYSICS_VERSION, physxDefaultAlloc, allocErrCallback);
 
 	return cpf;
 }

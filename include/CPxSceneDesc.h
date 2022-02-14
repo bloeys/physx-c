@@ -14,7 +14,7 @@ extern "C" {
 	};
 
 	/// <summary>
-	/// Creates a SceneDesc with filterShader=physx::PxDefaultSimulationFilterShader
+	/// Creates a SceneDesc with a custom filterShader that uses word0/word1 as groups shapes can belong to, word2 as a mask on word0, and word3 as a mask on word1.
 	/// </summary>
 	/// <param name="CPxTolerancesScale"></param>
 	/// <returns></returns>

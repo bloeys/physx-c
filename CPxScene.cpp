@@ -1,5 +1,6 @@
 #include <PxPhysicsAPI.h>
 #include "CPxScene.h"
+#include "CPxDefaultAllocator.h"
 
 CPxPvdSceneClient* CPxScene_getScenePvdClient(CPxScene* cs)
 {
@@ -42,11 +43,9 @@ bool CPxScene_fetchResults(CPxScene* cs, bool block, CPxU32* errorState)
 
 void CPxScene_setScratchBuffer(CPxScene* cs, uint32_t multiplesOf16k)
 {
-	physx::PxDefaultAllocator pa;
-
 	if (cs->scratchBuffer != NULL)
 	{
-		pa.deallocate(cs->scratchBuffer);
+		physxDefaultAlloc.deallocate(cs->scratchBuffer);
 		cs->scratchBuffer = NULL;
 		cs->scratchBufferSize = 0;
 	}
@@ -55,7 +54,7 @@ void CPxScene_setScratchBuffer(CPxScene* cs, uint32_t multiplesOf16k)
 		return;
 
 	cs->scratchBufferSize = 1024 * 16 * multiplesOf16k;
-	cs->scratchBuffer = pa.allocate(cs->scratchBufferSize, 0, 0, 0);
+	cs->scratchBuffer = physxDefaultAlloc.allocate(cs->scratchBufferSize, 0, 0, 0);
 }
 
 
@@ -65,8 +64,7 @@ void CPxScene_release(CPxScene* cs)
 
 	if (cs->scratchBuffer != NULL)
 	{
-		physx::PxDefaultAllocator pa;
-		pa.deallocate(cs->scratchBuffer);
+		physxDefaultAlloc.deallocate(cs->scratchBuffer);
 		cs->scratchBuffer = NULL;
 	}
 
