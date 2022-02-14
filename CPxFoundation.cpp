@@ -13,7 +13,7 @@ public:
 
 CPxFoundation* CPxCreateFoundation()
 {
-	CPxFoundation* cpf = (CPxFoundation*)malloc(sizeof(*cpf));
+	CPxFoundation* cpf = (CPxFoundation*)CPxAlloc(sizeof(*cpf));
 
 	static SimpleErrorCallback allocErrCallback;
 
@@ -25,5 +25,5 @@ CPxFoundation* CPxCreateFoundation()
 void CPxFoundation_release(CPxFoundation* cpf)
 {
 	static_cast<physx::PxFoundation*>(cpf->obj)->release();
-	free(cpf);
+	CPxDealloc(cpf);
 }

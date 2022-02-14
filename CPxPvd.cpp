@@ -1,11 +1,12 @@
 #include <PxPhysicsAPI.h>
 #include "CPxPvd.h"
+#include "CPxDefaultAllocator.h"
 
 CPxPvd* CPxCreatePvd(CPxFoundation* cpFoundation)
 {
 	physx::PxFoundation* f = static_cast<physx::PxFoundation*>(cpFoundation->obj);
 
-	CPxPvd* cpPvd = (CPxPvd*)malloc(sizeof(*cpPvd));
+	CPxPvd* cpPvd = (CPxPvd*)CPxAlloc(sizeof(*cpPvd));
 	cpPvd->obj = physx::PxCreatePvd(*f);
 
 	return cpPvd;
@@ -22,5 +23,5 @@ bool CPxPvd_connect(CSTRUCT CPxPvd* cpPvd, CPxPvdTransport* cpPvdTr, CPxPvdInstr
 void CPxPvd_release(CPxPvd* cpp)
 {
 	static_cast<physx::PxPvd*>(cpp->obj)->release();
-	free(cpp);
+	CPxDealloc(cpp);
 }

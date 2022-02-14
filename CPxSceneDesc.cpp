@@ -1,5 +1,6 @@
 #include <PxPhysicsAPI.h>
 #include "CPxSceneDesc.h"
+#include "CPxDefaultAllocator.h"
 
 class SimEventCallback : public physx::PxSimulationEventCallback {
 
@@ -60,7 +61,7 @@ CPxSceneDesc* NewCPxSceneDesc(CPxTolerancesScale cscale)
 	sceneDesc->simulationEventCallback = &sec;
 	sceneDesc->filterShader = CollisionFilterShader;
 
-	CPxSceneDesc* cpSceneDesc = (CPxSceneDesc*)malloc(sizeof(CPxSceneDesc));
+	CPxSceneDesc* cpSceneDesc = (CPxSceneDesc*)CPxAlloc(sizeof(CPxSceneDesc));
 	cpSceneDesc->obj = sceneDesc;
 
 	return cpSceneDesc;
@@ -76,9 +77,8 @@ void CPxSceneDesc_set_cpuDispatcher(CPxSceneDesc* csd, CPxCpuDispatcher* cDefDis
 	static_cast<physx::PxSceneDesc*>(csd->obj)->cpuDispatcher = static_cast<physx::PxCpuDispatcher*>(cDefDispatcher->obj);
 }
 
-
 void FreeCPxSceneDesc(CPxSceneDesc* cSceneDesc)
 {
 	delete static_cast<physx::PxSceneDesc*>(cSceneDesc->obj);
-	free(cSceneDesc);
+	CPxDealloc(cSceneDesc);
 }

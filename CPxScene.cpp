@@ -4,7 +4,7 @@
 
 CPxPvdSceneClient* CPxScene_getScenePvdClient(CPxScene* cs)
 {
-	CPxPvdSceneClient* cPvdSceneClient = (CPxPvdSceneClient*)malloc(sizeof(CPxPvdSceneClient));
+	CPxPvdSceneClient* cPvdSceneClient = (CPxPvdSceneClient*)CPxAlloc(sizeof(CPxPvdSceneClient));
 	cPvdSceneClient->obj = static_cast<physx::PxScene*>(cs->obj)->getScenePvdClient();
 
 	return cPvdSceneClient;
@@ -54,7 +54,7 @@ void CPxScene_setScratchBuffer(CPxScene* cs, uint32_t multiplesOf16k)
 		return;
 
 	cs->scratchBufferSize = 1024 * 16 * multiplesOf16k;
-	cs->scratchBuffer = physxDefaultAlloc.allocate(cs->scratchBufferSize, 0, 0, 0);
+	cs->scratchBuffer = CPxAlloc(cs->scratchBufferSize);
 }
 
 
@@ -68,5 +68,5 @@ void CPxScene_release(CPxScene* cs)
 		cs->scratchBuffer = NULL;
 	}
 
-	free(cs);
+	CPxDealloc(cs);
 }

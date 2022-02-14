@@ -1,6 +1,7 @@
 #include <PxPhysicsAPI.h>
 #include "CExtSimpleFactory.h"
 #include "CPxTransformHelpers.h"
+#include "CPxDefaultAllocator.h"
 
 CPxInline physx::PxRigidDynamic* DoPxCreateDynamic(CPxPhysics& sdk, const CPxTransform& transform, const physx::PxGeometry& geometry, CPxMaterial& material, CPxReal density, const CPxTransform& shapeOffset)
 {
@@ -14,7 +15,7 @@ CPxInline physx::PxRigidDynamic* DoPxCreateDynamic(CPxPhysics& sdk, const CPxTra
 
 CPxRigidDynamic* CPxCreateDynamic(CPxPhysics* sdk, CPxTransform* transform, CPxGeometry geometry, CPxMaterial* material, CPxReal density, CPxTransform* shapeOffset)
 {
-	CPxRigidDynamic* crd = (CPxRigidDynamic*)malloc(sizeof(CPxRigidDynamic));
+	CPxRigidDynamic* crd = (CPxRigidDynamic*)CPxAlloc(sizeof(CPxRigidDynamic));
 
 	switch (geometry.type)
 	{
