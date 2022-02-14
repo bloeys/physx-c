@@ -99,6 +99,9 @@
     <ClCompile Include="CPxFilterData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPxContactPairHeader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CExtSimpleFactory.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="CPxDefaultAllocator.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxContactPairHeader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

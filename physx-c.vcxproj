@@ -140,7 +140,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;CPxAPI=__declspec(dllexport);CPxInternalAPI=__declspec(dllexport);CSTRUCT=;CPxReal=float;CPxU32=uint32_t;CENUM=;CPxInline=inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;CPxAPI=__declspec(dllexport);CPxInternalAPI=__declspec(dllexport);CSTRUCT=;CPxReal=float;CPxU32=uint32_t;CPxU8=uint8_t;CPxU16=uint16_t;CENUM=;CPxInline=inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\user\Desktop\Dev\nmage-stuff\physx-c\include;C:\Users\user\Desktop\Dev\nmage-stuff\physx-c\vendor\physx-4.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -159,6 +159,7 @@
     <ClCompile Include="CPxActor.cpp" />
     <ClCompile Include="CPxBoxGeometry.cpp" />
     <ClCompile Include="CPxCapsuleGeometry.cpp" />
+    <ClCompile Include="CPxContactPairHeader.cpp" />
     <ClCompile Include="CPxCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultCpuDispatcher.cpp" />
     <ClCompile Include="CPxFilterData.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="include\CPxActor.h" />
     <ClInclude Include="include\CPxBoxGeometry.h" />
     <ClInclude Include="include\CPxCapsuleGeometry.h" />
+    <ClInclude Include="include\CPxContactPairHeader.h" />
     <ClInclude Include="include\CPxCpuDispatcher.h" />
     <ClInclude Include="include\CPxDefaultCpuDispatcher.h" />
     <ClInclude Include="include\CPxFilterData.h" />

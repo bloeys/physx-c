@@ -1,10 +1,17 @@
 #include <PxPhysicsAPI.h>
 #include "CPxSceneDesc.h"
 #include "CPxDefaultAllocator.h"
+#include "CPxContactPairHeader.h"
+
+void emptyOnContactCb(void*) {};
 
 class SimEventCallback : public physx::PxSimulationEventCallback {
 
 public:
+
+	int contactPairsBufferSize = 100;
+	CPxContactPair* contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * contactPairsBufferSize);
+	CPxonContactCallback onContactCb = emptyOnContactCb;
 
 	void onConstraintBreak(physx::PxConstraintInfo* /*constraints*/, physx::PxU32 /*count*/) override { printf("onConstraintBreak\n"); }
 	void onWake(physx::PxActor** /*actors*/, physx::PxU32 /*count*/) override { printf("onWake\n"); }
@@ -12,18 +19,51 @@ public:
 	void onTrigger(physx::PxTriggerPair* /*pairs*/, physx::PxU32 /*count*/) override { printf("onTrigger\n"); }
 	void onAdvance(const physx::PxRigidBody* const* /*bodyBuffer*/, const physx::PxTransform* /*poseBuffer*/, const physx::PxU32 /*count*/) override { printf("onAdvance\n"); }
 
-	void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs) override {
+	void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs) override
+	{
+		//PERF: Can we do something better than a copy?
+		CPxContactPairHeader cph;
+		cph.actors[0].obj = pairHeader.actors[0];
+		cph.actors[1].obj = pairHeader.actors[1];
 
-		auto e = pairHeader.pairs[0].events;
-		if (e & physx::PxPairFlag::eNOTIFY_TOUCH_FOUND) {
-			printf("Collision enter\n");
+		cph.extraDataStream = (char*)pairHeader.extraDataStream;
+		cph.extraDataStreamSize = pairHeader.extraDataStreamSize;
+
+		uint32_t f = static_cast<uint32_t>(pairHeader.flags);
+		cph.flags = static_cast<CPxContactPairHeaderFlag>(f);
+
+		cph.nbPairs = pairHeader.nbPairs;
+
+		if (nbPairs > contactPairsBufferSize) {
+			CPxDealloc(contactPairsBuffer);
+			contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * nbPairs);
+			contactPairsBufferSize = nbPairs;
+			cph.pairs = contactPairsBuffer;
 		}
-		else if (e & physx::PxPairFlag::eNOTIFY_TOUCH_PERSISTS) {
-			printf("Collision persist\n");
+
+		for (int i = 0; i < nbPairs; i++)
+		{
+			cph.pairs[i].contactCount = pairHeader.pairs[i].contactCount;
+			cph.pairs[i].contactImpulses = (CPxReal*)pairHeader.pairs[i].contactImpulses;
+			cph.pairs[i].contactPatches = (char*)pairHeader.pairs[i].contactPatches;
+			cph.pairs[i].contactPoints = (char*)pairHeader.pairs[i].contactPoints;
+			cph.pairs[i].contactStreamSize = (short)pairHeader.pairs[i].contactStreamSize;
+
+			f = static_cast<uint32_t>(pairHeader.pairs[i].events);
+			cph.pairs[i].events = static_cast<CPxPairFlags>(f);
+
+			f = static_cast<uint32_t>(pairHeader.pairs[i].flags);
+			cph.pairs[i].flags = static_cast<CPxContactPairFlag>(f);
+
+			cph.pairs[i].patchCount = pairHeader.pairs[i].patchCount;
+			cph.pairs[i].requiredBufferSize = pairHeader.pairs[i].requiredBufferSize;
+
+			cph.pairs[i].shapes[0].obj = pairHeader.pairs[i].shapes[0];
+			cph.pairs[i].shapes[1].obj = pairHeader.pairs[i].shapes[1];
 		}
-		else if (e & physx::PxPairFlag::eNOTIFY_TOUCH_LOST) {
-			printf("Collision lost\n");
-		}
+
+		physx::PxContactPairHeader nonConstHeader(pairHeader);
+		onContactCb(&nonConstHeader);
 	}
 };
 
@@ -76,6 +116,12 @@ void CPxSceneDesc_set_cpuDispatcher(CPxSceneDesc* csd, CPxCpuDispatcher* cDefDis
 {
 	static_cast<physx::PxSceneDesc*>(csd->obj)->cpuDispatcher = static_cast<physx::PxCpuDispatcher*>(cDefDispatcher->obj);
 }
+
+void CPxSceneDesc_set_onContactCallback(CPxSceneDesc*, CPxonContactCallback cb)
+{
+	sec.onContactCb = cb;
+}
+
 
 void FreeCPxSceneDesc(CPxSceneDesc* cSceneDesc)
 {
