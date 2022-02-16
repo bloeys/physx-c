@@ -57,6 +57,40 @@ void CPxScene_setScratchBuffer(CPxScene* cs, uint32_t multiplesOf16k)
 	cs->scratchBuffer = CPxAlloc(cs->scratchBufferSize);
 }
 
+void CPxRaycastHitFromPx(CPxRaycastHit& cHit, const physx::PxRaycastHit& pHit)
+{
+	cHit.actor.obj = pHit.actor;
+	cHit.distance = pHit.distance;
+	cHit.faceIndex = pHit.faceIndex;
+	cHit.normal = NewCPxVec3(pHit.normal.x, pHit.normal.y, pHit.normal.z);
+	cHit.position = NewCPxVec3(pHit.position.x, pHit.position.y, pHit.position.z);
+	cHit.shape.obj = pHit.shape;
+	cHit.u = pHit.u;
+	cHit.v = pHit.v;
+}
+
+bool CPxScene_raycast(CSTRUCT CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer** hitRet)
+{
+	physx::PxRaycastBuffer pBuf;
+	bool ret = static_cast<physx::PxScene*>(cs->obj)->raycast(physx::PxVec3(origin->x, origin->y, origin->z), physx::PxVec3(unitDir->x, unitDir->y, unitDir->z), distance, pBuf);
+
+	*hitRet = (CPxRaycastBuffer*)CPxAlloc(sizeof(CPxRaycastBuffer));
+	CPxRaycastBuffer* hit = *hitRet;
+	hit->hasBlock = pBuf.hasBlock;
+	if (pBuf.hasBlock)
+	{
+		CPxRaycastHitFromPx(hit->block, pBuf.block);
+	}
+
+	hit->nbTouches = pBuf.nbTouches;
+	hit->touches = (CPxRaycastHit*)CPxAlloc(sizeof(CPxRaycastHit) * hit->nbTouches);
+	for (size_t i = 0; i < pBuf.nbTouches; i++)
+	{
+		CPxRaycastHitFromPx(hit->touches[i], pBuf.touches[i]);
+	}
+
+	return ret;
+}
 
 void CPxScene_release(CPxScene* cs)
 {

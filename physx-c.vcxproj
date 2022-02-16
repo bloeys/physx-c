@@ -140,7 +140,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;CPxAPI=__declspec(dllexport);CPxInternalAPI=__declspec(dllexport);CSTRUCT=;CPxReal=float;CPxU32=uint32_t;CPxU8=uint8_t;CPxU16=uint16_t;CENUM=;CPxInline=inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;CPxAPI=__declspec(dllexport);CPxInternalAPI=__declspec(dllexport);CSTRUCT=;CPxReal=float;CPxU32=uint32_t;CPxU8=uint8_t;CPxU16=uint16_t;CPxF32=float;CENUM=;CPxInline=inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\user\Desktop\Dev\nmage-stuff\physx-c\include;C:\Users\user\Desktop\Dev\nmage-stuff\physx-c\vendor\physx-4.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -197,7 +197,6 @@
     <ClInclude Include="include\CPxFilterData.h" />
     <ClInclude Include="include\CPxForceMode.h" />
     <ClInclude Include="include\CPxFoundation.h" />
-    <ClInclude Include="include\CPxGeometry.h" />
     <ClInclude Include="include\CPxMaterial.h" />
     <ClInclude Include="include\CPxPhysics.h" />
     <ClInclude Include="include\CPxPlane.h" />
