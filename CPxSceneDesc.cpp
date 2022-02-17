@@ -7,9 +7,71 @@ void emptyOnContactCb(void*) {};
 
 class SimEventCallback : public physx::PxSimulationEventCallback {
 
+private:
+	//C version of PxContactPair::extractContacts that has the same c++ logic but CPx types. We do this so we don't have to copy data twice by running PxContactPair::extractContacts then copying the produced C++ structs into C
+	CPxU32 extractContacts(physx::PxContactPair& pair, CPxContactPairPoint* userBuffer, CPxU32 bufferSize) const
+	{
+		CPxU32 nbContacts = 0;
+
+		if (pair.contactCount && bufferSize)
+		{
+			physx::PxContactStreamIterator iter(pair.contactPatches, pair.contactPoints, pair.getInternalFaceIndices(), pair.patchCount, pair.contactCount);
+
+			const CPxReal* impulses = pair.contactImpulses;
+
+			const CPxU32 flippedContacts = (pair.flags & physx::PxContactPairFlag::eINTERNAL_CONTACTS_ARE_FLIPPED);
+			const CPxU32 hasImpulses = (pair.flags & physx::PxContactPairFlag::eINTERNAL_HAS_IMPULSES);
+
+			while (iter.hasNextPatch())
+			{
+				iter.nextPatch();
+				while (iter.hasNextContact())
+				{
+					iter.nextContact();
+					CPxContactPairPoint& dst = userBuffer[nbContacts];
+					auto cppVec3 = iter.getContactPoint();
+					dst.position = NewCPxVec3(cppVec3.x, cppVec3.y, cppVec3.z);
+
+					dst.separation = iter.getSeparation();
+
+					cppVec3 = iter.getContactNormal();
+					dst.normal = NewCPxVec3(cppVec3.x, cppVec3.y, cppVec3.z);
+					if (!flippedContacts)
+					{
+						dst.internalFaceIndex0 = iter.getFaceIndex0();
+						dst.internalFaceIndex1 = iter.getFaceIndex1();
+					}
+					else
+					{
+						dst.internalFaceIndex0 = iter.getFaceIndex1();
+						dst.internalFaceIndex1 = iter.getFaceIndex0();
+					}
+
+					if (hasImpulses)
+					{
+						const CPxReal impulse = impulses[nbContacts];
+						dst.impulse = NewCPxVec3(dst.normal.x * impulse, dst.normal.y * impulse, dst.normal.z * impulse);
+					}
+					else
+					{
+						dst.impulse = CPxVec3{ 0 };
+					}
+
+					++nbContacts;
+					if (nbContacts == bufferSize)
+						return nbContacts;
+				}
+			}
+		}
+
+		return nbContacts;
+	}
+
 public:
 
-	int contactPairsBufferSize = 100;
+	int contactPairsBufferSize = 100, contactPairPointBufferSize = 10;
+	CPxContactPairPoint* contactPairPointsBuffer = (CPxContactPairPoint*)CPxAlloc(sizeof(CPxContactPairPoint) * contactPairPointBufferSize);
+
 	CPxContactPair* contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * contactPairsBufferSize);
 	CPxonContactCallback onContactCb = emptyOnContactCb;
 

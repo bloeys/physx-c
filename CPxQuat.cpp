@@ -14,13 +14,3 @@ CPxQuat NewCPxQuat(float angleRads, float x, float y, float z)
 
 	return q;
 }
-
-CPxQuat NewCPxQuatXYZW(float x, float y, float z, float w)
-{
-	CPxQuat q;
-	q.x = x;
-	q.y = y;
-	q.z = z;
-	q.w = w;
-	return q;
-}

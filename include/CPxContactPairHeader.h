@@ -286,6 +286,39 @@ extern "C" {
 
 	};
 
+	struct CPxContactPairPoint
+	{
+		/**
+		\brief The position of the contact point between the shapes, in world space.
+		*/
+		CSTRUCT CPxVec3	position;
+
+		/**
+		\brief The separation of the shapes at the contact point.  A negative separation denotes a penetration.
+		*/
+		CPxReal	separation;
+
+		/**
+		\brief The normal of the contacting surfaces at the contact point. The normal direction points from the second shape to the first shape.
+		*/
+		CSTRUCT CPxVec3	normal;
+
+		/**
+		\brief The surface index of shape 0 at the contact point.  This is used to identify the surface material.
+		*/
+		CPxU32   internalFaceIndex0;
+
+		/**
+		\brief The impulse applied at the contact point, in world space. Divide by the simulation time step to get a force value.
+		*/
+		CSTRUCT CPxVec3	impulse;
+
+		/**
+		\brief The surface index of shape 1 at the contact point.  This is used to identify the surface material.
+		*/
+		CPxU32   internalFaceIndex1;
+	};
+
 	enum CPxContactPairHeaderFlag
 	{
 		CPxContactPairHeaderFlag_eREMOVED_ACTOR_0 = (1 << 0),			//!< The actor with index 0 has been removed from the scene.

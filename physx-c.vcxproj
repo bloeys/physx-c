@@ -196,6 +196,7 @@
     <ClInclude Include="include\CPxFilterData.h" />
     <ClInclude Include="include\CPxForceMode.h" />
     <ClInclude Include="include\CPxFoundation.h" />
+    <ClInclude Include="include\CPxGeometry.h" />
     <ClInclude Include="include\CPxMaterial.h" />
     <ClInclude Include="include\CPxPhysics.h" />
     <ClInclude Include="include\CPxPlane.h" />

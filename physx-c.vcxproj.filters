@@ -203,5 +203,8 @@
     <ClInclude Include="include\CPxFilterData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\CPxGeometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
