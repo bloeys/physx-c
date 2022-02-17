@@ -35,7 +35,7 @@ extern "C" {
 
 	struct CPxRaycastHit
 	{
-		CPxHitFlag flags;			//!< Hit flags specifying which members contain valid values.
+		CENUM CPxHitFlag flags;			//!< Hit flags specifying which members contain valid values.
 		CSTRUCT CPxVec3	position;	//!< World-space hit position (flag: #PxHitFlag::ePOSITION)
 		CSTRUCT CPxVec3	normal;		//!< World-space hit normal (flag: #PxHitFlag::eNORMAL)
 
