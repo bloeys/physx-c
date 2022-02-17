@@ -269,23 +269,6 @@ extern "C" {
 	CPxPairFlags_eTRIGGER_DEFAULT = CPxPairFlags_eNOTIFY_TOUCH_FOUND | CPxPairFlags_eNOTIFY_TOUCH_LOST | CPxPairFlags_eDETECT_DISCRETE_CONTACT
 	};
 
-	struct CPxContactPair
-	{
-		CSTRUCT CPxShape shapes[2];
-
-		CPxU8* contactPatches;
-		CPxU8* contactPoints;
-		CPxReal* contactImpulses;
-		CPxU32 requiredBufferSize;
-		CPxU8 contactCount;
-		CPxU8 patchCount;
-		CPxU16 contactStreamSize;
-
-		CENUM CPxContactPairFlag flags;
-		CENUM CPxPairFlags events;
-
-	};
-
 	struct CPxContactPairPoint
 	{
 		/**
@@ -317,6 +300,24 @@ extern "C" {
 		\brief The surface index of shape 1 at the contact point.  This is used to identify the surface material.
 		*/
 		CPxU32   internalFaceIndex1;
+	};
+
+	struct CPxContactPair
+	{
+		CSTRUCT CPxShape shapes[2];
+
+		CPxU8* contactPatches;
+		CPxU8* contactPoints;
+		CPxReal* contactImpulses;
+		CPxU32 requiredBufferSize;
+		CPxU8 contactCount;
+		CPxU8 patchCount;
+		CPxU16 contactStreamSize;
+
+		CENUM CPxPairFlags events;
+		CENUM CPxContactPairFlag flags;
+
+		CSTRUCT	CPxContactPairPoint* extractedContactPoints;
 	};
 
 	enum CPxContactPairHeaderFlag

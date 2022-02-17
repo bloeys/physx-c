@@ -9,7 +9,7 @@ class SimEventCallback : public physx::PxSimulationEventCallback {
 
 private:
 	//C version of PxContactPair::extractContacts that has the same c++ logic but CPx types. We do this so we don't have to copy data twice by running PxContactPair::extractContacts then copying the produced C++ structs into C
-	CPxU32 extractContacts(physx::PxContactPair& pair, CPxContactPairPoint* userBuffer, CPxU32 bufferSize) const
+	CPxU32 extractContacts(const physx::PxContactPair& pair, CPxContactPairPoint* userBuffer, const CPxU32 bufferSize) const
 	{
 		CPxU32 nbContacts = 0;
 
@@ -69,9 +69,10 @@ private:
 
 public:
 
-	int contactPairsBufferSize = 100, contactPairPointBufferSize = 10;
+	int contactPairPointBufferSize = 256;
 	CPxContactPairPoint* contactPairPointsBuffer = (CPxContactPairPoint*)CPxAlloc(sizeof(CPxContactPairPoint) * contactPairPointBufferSize);
 
+	int contactPairsBufferSize = 100;
 	CPxContactPair* contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * contactPairsBufferSize);
 	CPxonContactCallback onContactCb = emptyOnContactCb;
 
@@ -94,14 +95,28 @@ public:
 		uint32_t f = static_cast<uint32_t>(pairHeader.flags);
 		cph.flags = static_cast<CPxContactPairHeaderFlag>(f);
 
-		cph.nbPairs = pairHeader.nbPairs;
-
+		//Ensure pairs buffer is big enough
+		cph.nbPairs = nbPairs;
 		if (nbPairs > contactPairsBufferSize) {
 			CPxDealloc(contactPairsBuffer);
 			contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * nbPairs);
 			contactPairsBufferSize = nbPairs;
 		}
 
+		//PERF: Maybe use a different way so we don't loop twice?
+		//Ensure contacts buffer is big enough
+		int totalContactPoints = 0;
+		for (int i = 0; i < nbPairs; i++)
+			totalContactPoints += pairHeader.pairs[i].contactCount;
+
+		if (totalContactPoints > contactPairPointBufferSize)
+		{
+			CPxDealloc(contactPairPointsBuffer);
+			contactPairPointsBuffer = (CPxContactPairPoint*)CPxAlloc(sizeof(CPxContactPairPoint) * totalContactPoints);
+			contactPairPointBufferSize = totalContactPoints;
+		}
+
+		int currPoint = 0;
 		cph.pairs = contactPairsBuffer;
 		for (int i = 0; i < nbPairs; i++)
 		{
@@ -110,6 +125,12 @@ public:
 			cph.pairs[i].contactPatches = (CPxU8*)pairHeader.pairs[i].contactPatches;
 			cph.pairs[i].contactPoints = (CPxU8*)pairHeader.pairs[i].contactPoints;
 			cph.pairs[i].contactStreamSize = (CPxU16)pairHeader.pairs[i].contactStreamSize;
+
+			//NOTE: With this implementation we avoid copying the contactPairPoints data but the callback handler MUST copy data it wishes to keep
+			//for longer than the lifetime of the callback handler, as the memory it was handed might be reused/freed.
+			extractContacts(pairHeader.pairs[i], &contactPairPointsBuffer[currPoint], contactPairPointBufferSize - currPoint);
+			cph.pairs[i].extractedContactPoints = &contactPairPointsBuffer[currPoint];
+			currPoint += cph.pairs[i].contactCount;
 
 			f = static_cast<uint32_t>(pairHeader.pairs[i].events);
 			cph.pairs[i].events = static_cast<CPxPairFlags>(f);
@@ -139,6 +160,7 @@ physx::PxFilterFlags CollisionFilterShader(
 		retPairFlags = physx::PxPairFlag::eTRIGGER_DEFAULT;
 		return physx::PxFilterFlag::eDEFAULT;
 	}
+
 	// generate contacts for all that were not filtered above
 	retPairFlags = physx::PxPairFlag::eCONTACT_DEFAULT;
 
@@ -146,7 +168,7 @@ physx::PxFilterFlags CollisionFilterShader(
 	// the filtermask of A contains the ID of B and vice versa.
 	if ((filterData0.word0 & filterData1.word2) && (filterData1.word0 & filterData0.word2) ||
 		(filterData0.word1 & filterData1.word3) && (filterData1.word1 & filterData0.word3))
-		retPairFlags |= physx::PxPairFlag::eNOTIFY_TOUCH_FOUND | physx::PxPairFlag::eNOTIFY_TOUCH_PERSISTS | physx::PxPairFlag::eNOTIFY_TOUCH_LOST;
+		retPairFlags |= physx::PxPairFlag::eNOTIFY_TOUCH_FOUND | physx::PxPairFlag::eNOTIFY_TOUCH_PERSISTS | physx::PxPairFlag::eNOTIFY_TOUCH_LOST | physx::PxPairFlag::eNOTIFY_CONTACT_POINTS;
 
 	return physx::PxFilterFlag::eDEFAULT;
 }
