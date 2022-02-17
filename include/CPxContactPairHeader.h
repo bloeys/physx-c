@@ -269,30 +269,17 @@ extern "C" {
 	CPxPairFlags_eTRIGGER_DEFAULT = CPxPairFlags_eNOTIFY_TOUCH_FOUND | CPxPairFlags_eNOTIFY_TOUCH_LOST | CPxPairFlags_eDETECT_DISCRETE_CONTACT
 	};
 
-	//TODO: uintxx_t not available again
 	struct CPxContactPair
 	{
 		CSTRUCT CPxShape shapes[2];
 
-		char* contactPatches;
-		//const PxU8* contactPatches;
-
-		char* contactPoints;
-		//const PxU8* contactPoints;
-
+		CPxU8* contactPatches;
+		CPxU8* contactPoints;
 		CPxReal* contactImpulses;
-
-		unsigned int requiredBufferSize;
-		//CPxU32 requiredBufferSize;
-
-		char contactCount;
-		//PxU8 contactCount;
-
-		char patchCount;
-		//PxU8 patchCount;
-
-		short contactStreamSize;
-		//PxU16 contactStreamSize;
+		CPxU32 requiredBufferSize;
+		CPxU8 contactCount;
+		CPxU8 patchCount;
+		CPxU16 contactStreamSize;
 
 		CENUM CPxContactPairFlag flags;
 		CENUM CPxPairFlags events;
@@ -309,17 +296,13 @@ extern "C" {
 	{
 		CSTRUCT CPxRigidActor actors[2];
 
-		char* extraDataStream;
-		short extraDataStreamSize;
-		/*CPxU8* extraDataStream;
-		CPxU16 extraDataStreamSize;*/
+		CPxU8* extraDataStream;
+		CPxU16 extraDataStreamSize;
 
 		CENUM CPxContactPairHeaderFlag	flags;
 
 		CSTRUCT CPxContactPair* pairs;
-
-		unsigned int nbPairs;
-		//CPxU32 nbPairs;
+		CPxU32 nbPairs;
 	};
 
 #ifdef __cplusplus

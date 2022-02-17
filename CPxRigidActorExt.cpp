@@ -43,7 +43,7 @@ CPxShape createExclusiveShape(CPxRigidActor actor, CPxGeometry geometry, CPxMate
 	}
 
 	//NOTE: This is an invalid cast and will crash physx, with an error saying something like 'unknown shape type'.
-	//We do it here intentionally because the user passed an invalid shape type (or one we don't handle)
+	//We do it here intentionally because the user passed an invalid shape type (or one we don't handle yet)
 	return DoCreateExclusiveShape(actor, *static_cast<physx::PxGeometry*>(geometry.obj), *material, shapeFlags);
 }
 

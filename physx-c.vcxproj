@@ -162,7 +162,6 @@
     <ClCompile Include="CPxContactPairHeader.cpp" />
     <ClCompile Include="CPxCpuDispatcher.cpp" />
     <ClCompile Include="CPxDefaultCpuDispatcher.cpp" />
-    <ClCompile Include="CPxFilterData.cpp" />
     <ClCompile Include="CPxFoundation.cpp" />
     <ClCompile Include="CPxGeometry.cpp" />
     <ClCompile Include="CPxMaterial.cpp" />

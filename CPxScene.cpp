@@ -62,6 +62,7 @@ void CPxRaycastHitFromPx(CPxRaycastHit& cHit, const physx::PxRaycastHit& pHit)
 	cHit.actor.obj = pHit.actor;
 	cHit.distance = pHit.distance;
 	cHit.faceIndex = pHit.faceIndex;
+	cHit.flags = static_cast<CPxHitFlag>(static_cast<physx::PxU16>(pHit.flags));
 	cHit.normal = NewCPxVec3(pHit.normal.x, pHit.normal.y, pHit.normal.z);
 	cHit.position = NewCPxVec3(pHit.position.x, pHit.position.y, pHit.position.z);
 	cHit.shape.obj = pHit.shape;

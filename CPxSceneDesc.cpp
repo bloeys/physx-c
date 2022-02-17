@@ -26,7 +26,7 @@ public:
 		cph.actors[0].obj = pairHeader.actors[0];
 		cph.actors[1].obj = pairHeader.actors[1];
 
-		cph.extraDataStream = (char*)pairHeader.extraDataStream;
+		cph.extraDataStream = (CPxU8*)pairHeader.extraDataStream;
 		cph.extraDataStreamSize = pairHeader.extraDataStreamSize;
 
 		uint32_t f = static_cast<uint32_t>(pairHeader.flags);
@@ -45,9 +45,9 @@ public:
 		{
 			cph.pairs[i].contactCount = pairHeader.pairs[i].contactCount;
 			cph.pairs[i].contactImpulses = (CPxReal*)pairHeader.pairs[i].contactImpulses;
-			cph.pairs[i].contactPatches = (char*)pairHeader.pairs[i].contactPatches;
-			cph.pairs[i].contactPoints = (char*)pairHeader.pairs[i].contactPoints;
-			cph.pairs[i].contactStreamSize = (short)pairHeader.pairs[i].contactStreamSize;
+			cph.pairs[i].contactPatches = (CPxU8*)pairHeader.pairs[i].contactPatches;
+			cph.pairs[i].contactPoints = (CPxU8*)pairHeader.pairs[i].contactPoints;
+			cph.pairs[i].contactStreamSize = (CPxU16)pairHeader.pairs[i].contactStreamSize;
 
 			f = static_cast<uint32_t>(pairHeader.pairs[i].events);
 			cph.pairs[i].events = static_cast<CPxPairFlags>(f);
