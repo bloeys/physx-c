@@ -9,7 +9,7 @@ class SimEventCallback : public physx::PxSimulationEventCallback {
 
 private:
 	//C version of PxContactPair::extractContacts that has the same c++ logic but CPx types. We do this so we don't have to copy data twice by running PxContactPair::extractContacts then copying the produced C++ structs into C
-	CPxU32 extractContacts(const physx::PxContactPair& pair, CPxContactPairPoint* userBuffer, const CPxU32 bufferSize) const
+	CPxInline CPxU32 extractContacts(const physx::PxContactPair& pair, CPxContactPairPoint* userBuffer, const CPxU32 bufferSize) const
 	{
 		CPxU32 nbContacts = 0;
 
