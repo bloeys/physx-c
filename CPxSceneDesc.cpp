@@ -221,5 +221,4 @@ void FreeCPxSceneDesc(CPxSceneDesc* cSceneDesc)
 	}
 
 	CPxDealloc(sceneDesc);
-	CPxDealloc(cSceneDesc);
 }
