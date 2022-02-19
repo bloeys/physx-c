@@ -70,7 +70,7 @@ void CPxRaycastHitFromPx(CPxRaycastHit& cHit, const physx::PxRaycastHit& pHit)
 	cHit.v = pHit.v;
 }
 
-bool CPxScene_raycast(CSTRUCT CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer** hitRet)
+bool CPxScene_raycast(CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer** hitRet)
 {
 	physx::PxRaycastBuffer pBuf;
 	bool ret = static_cast<physx::PxScene*>(cs->obj)->raycast(physx::PxVec3(origin->x, origin->y, origin->z), physx::PxVec3(unitDir->x, unitDir->y, unitDir->z), distance, pBuf);
@@ -86,6 +86,35 @@ bool CPxScene_raycast(CSTRUCT CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, C
 	hit->nbTouches = pBuf.nbTouches;
 	hit->touches = (CPxRaycastHit*)CPxAlloc(sizeof(CPxRaycastHit) * hit->nbTouches);
 	for (size_t i = 0; i < pBuf.nbTouches; i++)
+	{
+		CPxRaycastHitFromPx(hit->touches[i], pBuf.touches[i]);
+	}
+
+	return ret;
+}
+
+bool CPxScene_raycastWithHitBuffer(CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer* hit, CPxU32 touchesToRead)
+{
+	physx::PxRaycastBuffer pBuf;
+	bool ret = static_cast<physx::PxScene*>(cs->obj)->raycast(physx::PxVec3(origin->x, origin->y, origin->z), physx::PxVec3(unitDir->x, unitDir->y, unitDir->z), distance, pBuf);
+
+	hit->hasBlock = pBuf.hasBlock;
+	if (pBuf.hasBlock)
+	{
+		CPxRaycastHitFromPx(hit->block, pBuf.block);
+	}
+
+	//We read a max of touchesToRead
+	if (pBuf.nbTouches > touchesToRead)
+	{
+		hit->nbTouches = touchesToRead;
+	}
+	else
+	{
+		hit->nbTouches = pBuf.nbTouches;
+	}
+
+	for (size_t i = 0; i < hit->nbTouches; i++)
 	{
 		CPxRaycastHitFromPx(hit->touches[i], pBuf.touches[i]);
 	}

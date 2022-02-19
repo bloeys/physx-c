@@ -170,6 +170,7 @@
     <ClCompile Include="CPxPvdSceneClient.cpp" />
     <ClCompile Include="CPxPvdTransport.cpp" />
     <ClCompile Include="CPxQuat.cpp" />
+    <ClCompile Include="CPxRaycastBuffer.cpp" />
     <ClCompile Include="CPxRigidActor.cpp" />
     <ClCompile Include="CPxRigidActorExt.cpp" />
     <ClCompile Include="CPxRigidDynamic.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="include\CPxPvdSceneClient.h" />
     <ClInclude Include="include\CPxPvdTransport.h" />
     <ClInclude Include="include\CPxQuat.h" />
+    <ClInclude Include="include\CPxRaycastBuffer.h" />
     <ClInclude Include="include\CPxRigidActor.h" />
     <ClInclude Include="include\CPxRigidActorExt.h" />
     <ClInclude Include="include\CPxRigidBodyFlag.h" />
