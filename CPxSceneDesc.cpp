@@ -173,19 +173,23 @@ physx::PxFilterFlags CollisionFilterShader(
 	return physx::PxFilterFlag::eDEFAULT;
 }
 
-SimEventCallback sec;
-CPxSceneDesc* NewCPxSceneDesc(CPxTolerancesScale cscale)
+CPxSceneDesc NewCPxSceneDesc(CPxTolerancesScale cscale)
 {
 	physx::PxTolerancesScale scale;
 	scale.length = cscale.length;
 	scale.speed = cscale.speed;
 
-	physx::PxSceneDesc* sceneDesc = new physx::PxSceneDesc(scale);
-	sceneDesc->simulationEventCallback = &sec;
+	SimEventCallback* sec = (SimEventCallback*)CPxAlloc(sizeof(SimEventCallback));
+	new(sec) SimEventCallback();
+
+	physx::PxSceneDesc* sceneDesc = (physx::PxSceneDesc*)CPxAlloc(sizeof(physx::PxSceneDesc));
+	new(sceneDesc) physx::PxSceneDesc(scale);
+
+	sceneDesc->simulationEventCallback = sec;
 	sceneDesc->filterShader = CollisionFilterShader;
 
-	CPxSceneDesc* cpSceneDesc = (CPxSceneDesc*)CPxAlloc(sizeof(CPxSceneDesc));
-	cpSceneDesc->obj = sceneDesc;
+	CPxSceneDesc cpSceneDesc;
+	cpSceneDesc.obj = sceneDesc;
 
 	return cpSceneDesc;
 }
@@ -200,14 +204,22 @@ void CPxSceneDesc_set_cpuDispatcher(CPxSceneDesc* csd, CPxCpuDispatcher* cDefDis
 	static_cast<physx::PxSceneDesc*>(csd->obj)->cpuDispatcher = static_cast<physx::PxCpuDispatcher*>(cDefDispatcher->obj);
 }
 
-void CPxSceneDesc_set_onContactCallback(CPxSceneDesc*, CPxonContactCallback cb)
+void CPxSceneDesc_set_onContactCallback(CPxSceneDesc* csd, CPxonContactCallback cb)
 {
-	sec.onContactCb = cb;
+	static_cast<SimEventCallback*>(static_cast<physx::PxSceneDesc*>(csd->obj)->simulationEventCallback)->onContactCb = cb;
 }
-
 
 void FreeCPxSceneDesc(CPxSceneDesc* cSceneDesc)
 {
-	delete static_cast<physx::PxSceneDesc*>(cSceneDesc->obj);
+	physx::PxSceneDesc* sceneDesc = static_cast<physx::PxSceneDesc*>(cSceneDesc->obj);
+
+	//We free only if SimEventCallback is used. In case this was overridden its up to the user to free their class.
+	SimEventCallback* simEventCallback = dynamic_cast<SimEventCallback*>(sceneDesc->simulationEventCallback);
+	if (simEventCallback)
+	{
+		CPxDealloc(simEventCallback);
+	}
+
+	CPxDealloc(sceneDesc);
 	CPxDealloc(cSceneDesc);
 }
