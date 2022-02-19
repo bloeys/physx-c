@@ -1,16 +1,12 @@
-#include <PxPhysicsAPI.h>
 #include "CPxPlane.h"
-#include "CPxDefaultAllocator.h"
 
-CPxPlane* NewCPxPlane(float nx, float ny, float nz, float distance)
+CPxPlane NewCPxPlane(float nx, float ny, float nz, float distance)
 {
-	CPxPlane* cp = (CPxPlane*)CPxAlloc(sizeof(CPxPlane));
-	cp->obj = new physx::PxPlane(nx, ny, nz, distance);
+	CPxPlane cp;
+	cp.n.x = nx;
+	cp.n.y = ny;
+	cp.n.z = nz;
+	cp.d = distance;
+
 	return cp;
-}
-
-void CPxPlane_release(CPxPlane* cp)
-{
-	delete static_cast<physx::PxPlane*>(cp->obj);
-	CPxDealloc(cp);
 }
