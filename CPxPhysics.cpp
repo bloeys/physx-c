@@ -10,7 +10,12 @@ CPxPhysics* CPxCreatePhysics(CPxFoundation* cfoundation, CPxTolerancesScale csca
 	tolerances.speed = cscale.speed;
 
 	CPxPhysics* cpPhysics = (CPxPhysics*)CPxAlloc(sizeof(CPxPhysics));
-	cpPhysics->obj = PxCreatePhysics(PX_PHYSICS_VERSION, *static_cast<physx::PxFoundation*>(cfoundation->obj), tolerances, trackOutstandingAllocations, static_cast<physx::PxPvd*>(cpvd->obj));
+	if (cpvd != NULL) {
+		cpPhysics->obj = PxCreatePhysics(PX_PHYSICS_VERSION, *static_cast<physx::PxFoundation*>(cfoundation->obj), tolerances, trackOutstandingAllocations, static_cast<physx::PxPvd*>(cpvd->obj));
+	}
+	else {
+		cpPhysics->obj = PxCreatePhysics(PX_PHYSICS_VERSION, *static_cast<physx::PxFoundation*>(cfoundation->obj), tolerances, trackOutstandingAllocations);
+	}
 
 	return cpPhysics;
 }
