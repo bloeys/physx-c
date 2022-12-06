@@ -1,6 +1,7 @@
 #include <PxPhysicsAPI.h>
 #include <cstdlib>
 #include "CPxPvdSceneClient.h"
+#include "CPxDefaultAllocator.h"
 
 void CPxPvdSceneClient_setScenePvdFlag(CPxPvdSceneClient* c, CPxPvdSceneFlag flag, bool value)
 {
@@ -9,5 +10,5 @@ void CPxPvdSceneClient_setScenePvdFlag(CPxPvdSceneClient* c, CPxPvdSceneFlag fla
 
 void CPxPvdSceneClient_release(CPxPvdSceneClient* c)
 {
-	free(c);
+	CPxDealloc(c);
 }

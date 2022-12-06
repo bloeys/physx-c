@@ -1,7 +1,8 @@
 #include <PxPhysicsAPI.h>
 #include "CPxMaterial.h"
+#include "CPxDefaultAllocator.h"
 
 void CPxMaterial_release(CPxMaterial* cm)
 {
-	free(cm);
+	CPxDealloc(cm);
 }

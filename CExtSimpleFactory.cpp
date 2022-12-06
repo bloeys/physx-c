@@ -37,6 +37,8 @@ CPxRigidDynamic* CPxCreateDynamic(CPxPhysics* sdk, CPxTransform* transform, CPxG
 		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxBoxGeometry(cbg->hx, cbg->hy, cbg->hz), *material, density, *shapeOffset);
 	}
 	break;
+
+	// @TODO
 	/*case CPxGeometryType_eCONVEXMESH:
 		break;
 	case CPxGeometryType_eTRIANGLEMESH:
