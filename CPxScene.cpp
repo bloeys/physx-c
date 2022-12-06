@@ -45,7 +45,7 @@ void CPxScene_setScratchBuffer(CPxScene* cs, uint32_t multiplesOf16k)
 {
 	if (cs->scratchBuffer != NULL)
 	{
-		physxDefaultAlloc.deallocate(cs->scratchBuffer);
+		CPxDealloc(cs->scratchBuffer);
 		cs->scratchBuffer = NULL;
 		cs->scratchBufferSize = 0;
 	}
@@ -128,7 +128,7 @@ void CPxScene_release(CPxScene* cs)
 
 	if (cs->scratchBuffer != NULL)
 	{
-		physxDefaultAlloc.deallocate(cs->scratchBuffer);
+		CPxDealloc(cs->scratchBuffer);
 		cs->scratchBuffer = NULL;
 	}
 
