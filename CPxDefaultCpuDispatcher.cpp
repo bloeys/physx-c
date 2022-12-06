@@ -2,10 +2,10 @@
 #include "CPxDefaultCpuDispatcher.h"
 #include "CPxDefaultAllocator.h"
 
-CPxDefaultCpuDispatcher* CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32 affinityMasks)
+CPxDefaultCpuDispatcher* CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32* affinityMasks)
 {
 	CPxDefaultCpuDispatcher* cdcd = (CPxDefaultCpuDispatcher*)CPxAlloc(sizeof(CPxDefaultCpuDispatcher));
-	cdcd->obj = physx::PxDefaultCpuDispatcherCreate(numThreads, &affinityMasks);
+	cdcd->obj = physx::PxDefaultCpuDispatcherCreate(numThreads, affinityMasks);
 	return cdcd;
 }
 
