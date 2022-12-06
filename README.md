@@ -46,3 +46,18 @@ You can get some prebuilt PhysX DLLs from the [PhysX](https://github.com/NVIDIAG
 
 To see a real-world usage of physx-c, you can checkout [physx-go](https://github.com/bloeys/physx-go) for an example of how to use physx-c
 to provide a PhysX wrapper for a different programming language (Go in this case).
+
+## Features
+
+The absolute core features of PhysX have all been wrapped, which includes scenes, collision shapes, raycasts, rigid bodies, visual debugger, and simulations, among others.
+
+Some of the things that have not been wrapped include:
+
+- Joints (planned)
+- Articulations
+- Vehicles
+- Character controller
+- Serialization
+- Simulation Statistics
+
+PRs are welcome!
