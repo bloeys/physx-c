@@ -42,7 +42,7 @@ By default, physx-c builds into a single `physx-c.dll` file which then loads the
 To use it simply add the `include` folder to your includes and make sure `physx-c.dll` and the normal PhysX DLLs (e.g. `PhysX_64.dll`) are
 in the same folder (usually in the same folder as your executable).
 
-You can get some prebuilt PhysX DLLs from the [PhysX](https://github.com/NVIDIAGameWorks/PhysX/tree/4.1) repo, or you can build the source from the original PhysX repo, or from this [workflow](https://github.com/bloeys/physx-builder/actions/workflows/build-physx.yml).
+You can get some prebuilt PhysX DLLs from the [PhysX](https://github.com/NVIDIAGameWorks/PhysX/tree/4.1) repo, or you can build the source from the original PhysX repo, or from the releases on this [repo](https://github.com/bloeys/physx-builder).
 
 To see a real-world usage of physx-c, you can checkout [physx-go](https://github.com/bloeys/physx-go) for an example of how to use physx-c
 to provide a PhysX wrapper for a different programming language (Go in this case).
