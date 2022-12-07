@@ -429,3 +429,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Custom
+!vendor/**/*.lib
+
+*.exp
+*.map
