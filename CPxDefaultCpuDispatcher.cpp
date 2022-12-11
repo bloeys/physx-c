@@ -7,7 +7,7 @@
 #include <Windows.h>
 #include <errhandlingapi.h>
 
-#define NS_MS_VC_EXCEPTION 0x406D1388
+constexpr DWORD NS_MS_VC_EXCEPTION = 0x406D1388;
 
 LONG VectoredExceptionHandler(_EXCEPTION_POINTERS* exceptionInfo)
 {
