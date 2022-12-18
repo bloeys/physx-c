@@ -194,24 +194,24 @@ CPxSceneDesc NewCPxSceneDesc(CPxTolerancesScale cscale)
 	return cpSceneDesc;
 }
 
-void CPxSceneDesc_set_gravity(CPxSceneDesc* cSceneDesc, CPxVec3 g)
+void CPxSceneDesc_set_gravity(CPxSceneDesc cSceneDesc, CPxVec3 g)
 {
-	static_cast<physx::PxSceneDesc*>(cSceneDesc->obj)->gravity = physx::PxVec3(g.x, g.y, g.z);
+	static_cast<physx::PxSceneDesc*>(cSceneDesc.obj)->gravity = physx::PxVec3(g.x, g.y, g.z);
 }
 
-void CPxSceneDesc_set_cpuDispatcher(CPxSceneDesc* csd, CPxCpuDispatcher* cDefDispatcher)
+void CPxSceneDesc_set_cpuDispatcher(CPxSceneDesc csd, CPxCpuDispatcher cDefDispatcher)
 {
-	static_cast<physx::PxSceneDesc*>(csd->obj)->cpuDispatcher = static_cast<physx::PxCpuDispatcher*>(cDefDispatcher->obj);
+	static_cast<physx::PxSceneDesc*>(csd.obj)->cpuDispatcher = static_cast<physx::PxCpuDispatcher*>(cDefDispatcher.obj);
 }
 
-void CPxSceneDesc_set_onContactCallback(CPxSceneDesc* csd, CPxonContactCallback cb)
+void CPxSceneDesc_set_onContactCallback(CPxSceneDesc csd, CPxonContactCallback cb)
 {
-	static_cast<SimEventCallback*>(static_cast<physx::PxSceneDesc*>(csd->obj)->simulationEventCallback)->onContactCb = cb;
+	static_cast<SimEventCallback*>(static_cast<physx::PxSceneDesc*>(csd.obj)->simulationEventCallback)->onContactCb = cb;
 }
 
-void FreeCPxSceneDesc(CPxSceneDesc* cSceneDesc)
+void FreeCPxSceneDesc(CPxSceneDesc cSceneDesc)
 {
-	physx::PxSceneDesc* sceneDesc = static_cast<physx::PxSceneDesc*>(cSceneDesc->obj);
+	physx::PxSceneDesc* sceneDesc = static_cast<physx::PxSceneDesc*>(cSceneDesc.obj);
 
 	//We free only if SimEventCallback is used. In case this was overridden its up to the user to free their class.
 	SimEventCallback* simEventCallback = dynamic_cast<SimEventCallback*>(sceneDesc->simulationEventCallback);
@@ -219,6 +219,4 @@ void FreeCPxSceneDesc(CPxSceneDesc* cSceneDesc)
 	{
 		CPxDealloc(simEventCallback);
 	}
-
-	CPxDealloc(sceneDesc);
 }

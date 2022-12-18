@@ -2,26 +2,25 @@
 #include "CPxPvd.h"
 #include "CPxDefaultAllocator.h"
 
-CPxPvd* CPxCreatePvd(CPxFoundation* cpFoundation)
+CPxPvd CPxCreatePvd(CPxFoundation cpFoundation)
 {
-	physx::PxFoundation* f = static_cast<physx::PxFoundation*>(cpFoundation->obj);
+	physx::PxFoundation* f = static_cast<physx::PxFoundation*>(cpFoundation.obj);
 
-	CPxPvd* cpPvd = (CPxPvd*)CPxAlloc(sizeof(*cpPvd));
-	cpPvd->obj = physx::PxCreatePvd(*f);
+	CPxPvd cpPvd{};
+	cpPvd.obj = physx::PxCreatePvd(*f);
 
 	return cpPvd;
 }
 
-bool CPxPvd_connect(CSTRUCT CPxPvd* cpPvd, CPxPvdTransport* cpPvdTr, CPxPvdInstrumentationFlag cppif)
+bool CPxPvd_connect(CSTRUCT CPxPvd cpPvd, CPxPvdTransport cpPvdTr, CPxPvdInstrumentationFlag cppif)
 {
-	physx::PxPvd* pvd = static_cast<physx::PxPvd*>(cpPvd->obj);
-	physx::PxPvdTransport* pvdTr = static_cast<physx::PxPvdTransport*>(cpPvdTr->obj);
+	physx::PxPvd* pvd = static_cast<physx::PxPvd*>(cpPvd.obj);
+	physx::PxPvdTransport* pvdTr = static_cast<physx::PxPvdTransport*>(cpPvdTr.obj);
 	return pvd->connect(*pvdTr, static_cast<physx::PxPvdInstrumentationFlag::Enum>(cppif));
 }
 
 
-void CPxPvd_release(CPxPvd* cpp)
+void CPxPvd_release(CPxPvd cpp)
 {
-	static_cast<physx::PxPvd*>(cpp->obj)->release();
-	CPxDealloc(cpp);
+	static_cast<physx::PxPvd*>(cpp.obj)->release();
 }

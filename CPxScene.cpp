@@ -2,59 +2,58 @@
 #include "CPxScene.h"
 #include "CPxDefaultAllocator.h"
 
-CPxPvdSceneClient* CPxScene_getScenePvdClient(CPxScene* cs)
+CPxPvdSceneClient CPxScene_getScenePvdClient(CPxScene cs)
 {
-	CPxPvdSceneClient* cPvdSceneClient = (CPxPvdSceneClient*)CPxAlloc(sizeof(CPxPvdSceneClient));
-	cPvdSceneClient->obj = static_cast<physx::PxScene*>(cs->obj)->getScenePvdClient();
+	CPxPvdSceneClient cPvdSceneClient{};
+	cPvdSceneClient.obj = static_cast<physx::PxScene*>(cs.obj)->getScenePvdClient();
 
 	return cPvdSceneClient;
 }
 
-void CPxScene_addActor(CPxScene* cScene, CPxActor cActor)
+void CPxScene_addActor(CPxScene cs, CPxActor cActor)
 {
-	static_cast<physx::PxScene*>(cScene->obj)->
-		addActor(*static_cast<physx::PxActor*>(cActor.obj));
+	static_cast<physx::PxScene*>(cs.obj)->addActor(*static_cast<physx::PxActor*>(cActor.obj));
 }
 
-void CPxScene_simulate(CPxScene* cs, CPxReal elapsedTime)
+void CPxScene_simulate(CPxScene cs, CPxReal elapsedTime)
 {
-	static_cast<physx::PxScene*>(cs->obj)->simulate(elapsedTime, 0, cs->scratchBuffer, cs->scratchBufferSize, true);
+	static_cast<physx::PxScene*>(cs.obj)->simulate(elapsedTime, 0, cs.scratchBuffer, cs.scratchBufferSize, true);
 }
 
-void CPxScene_collide(CPxScene* cs, CPxReal elapsedTime)
+void CPxScene_collide(CPxScene cs, CPxReal elapsedTime)
 {
-	static_cast<physx::PxScene*>(cs->obj)->collide(elapsedTime, 0, cs->scratchBuffer, cs->scratchBufferSize, true);
+	static_cast<physx::PxScene*>(cs.obj)->collide(elapsedTime, 0, cs.scratchBuffer, cs.scratchBufferSize, true);
 }
 
-bool CPxScene_fetchCollision(CPxScene* cs, bool block)
+bool CPxScene_fetchCollision(CPxScene cs, bool block)
 {
-	return static_cast<physx::PxScene*>(cs->obj)->fetchCollision(block);
+	return static_cast<physx::PxScene*>(cs.obj)->fetchCollision(block);
 }
 
-void CPxScene_advance(CPxScene* cs)
+void CPxScene_advance(CPxScene cs)
 {
-	static_cast<physx::PxScene*>(cs->obj)->advance();
+	static_cast<physx::PxScene*>(cs.obj)->advance();
 }
 
-bool CPxScene_fetchResults(CPxScene* cs, bool block, CPxU32* errorState)
+bool CPxScene_fetchResults(CPxScene cs, bool block, CPxU32* errorState)
 {
-	return static_cast<physx::PxScene*>(cs->obj)->fetchResults(block, errorState);
+	return static_cast<physx::PxScene*>(cs.obj)->fetchResults(block, errorState);
 }
 
-void CPxScene_setScratchBuffer(CPxScene* cs, uint32_t multiplesOf16k)
+void CPxScene_setScratchBuffer(CPxScene cs, uint32_t multiplesOf16k)
 {
-	if (cs->scratchBuffer != NULL)
+	if (cs.scratchBuffer != NULL)
 	{
-		CPxDealloc(cs->scratchBuffer);
-		cs->scratchBuffer = NULL;
-		cs->scratchBufferSize = 0;
+		CPxDealloc(cs.scratchBuffer);
+		cs.scratchBuffer = NULL;
+		cs.scratchBufferSize = 0;
 	}
 
 	if (multiplesOf16k == 0)
 		return;
 
-	cs->scratchBufferSize = 1024 * 16 * multiplesOf16k;
-	cs->scratchBuffer = CPxAlloc(cs->scratchBufferSize);
+	cs.scratchBufferSize = 1024 * 16 * multiplesOf16k;
+	cs.scratchBuffer = CPxAlloc(cs.scratchBufferSize);
 }
 
 void CPxRaycastHitFromPx(CPxRaycastHit& cHit, const physx::PxRaycastHit& pHit)
@@ -70,10 +69,10 @@ void CPxRaycastHitFromPx(CPxRaycastHit& cHit, const physx::PxRaycastHit& pHit)
 	cHit.v = pHit.v;
 }
 
-bool CPxScene_raycast(CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer** hitRet)
+bool CPxScene_raycast(CPxScene cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer** hitRet)
 {
 	physx::PxRaycastBuffer pBuf;
-	bool ret = static_cast<physx::PxScene*>(cs->obj)->raycast(physx::PxVec3(origin->x, origin->y, origin->z), physx::PxVec3(unitDir->x, unitDir->y, unitDir->z), distance, pBuf);
+	bool ret = static_cast<physx::PxScene*>(cs.obj)->raycast(physx::PxVec3(origin->x, origin->y, origin->z), physx::PxVec3(unitDir->x, unitDir->y, unitDir->z), distance, pBuf);
 
 	*hitRet = (CPxRaycastBuffer*)CPxAlloc(sizeof(CPxRaycastBuffer));
 	CPxRaycastBuffer* hit = *hitRet;
@@ -93,10 +92,10 @@ bool CPxScene_raycast(CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal d
 	return ret;
 }
 
-bool CPxScene_raycastWithHitBuffer(CPxScene* cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer* hit, CPxU32 touchesToRead)
+bool CPxScene_raycastWithHitBuffer(CPxScene cs, CPxVec3* origin, CPxVec3* unitDir, CPxReal distance, CPxRaycastBuffer* hit, CPxU32 touchesToRead)
 {
 	physx::PxRaycastBuffer pBuf;
-	bool ret = static_cast<physx::PxScene*>(cs->obj)->raycast(physx::PxVec3(origin->x, origin->y, origin->z), physx::PxVec3(unitDir->x, unitDir->y, unitDir->z), distance, pBuf);
+	bool ret = static_cast<physx::PxScene*>(cs.obj)->raycast(physx::PxVec3(origin->x, origin->y, origin->z), physx::PxVec3(unitDir->x, unitDir->y, unitDir->z), distance, pBuf);
 
 	hit->hasBlock = pBuf.hasBlock;
 	if (pBuf.hasBlock)
@@ -122,15 +121,13 @@ bool CPxScene_raycastWithHitBuffer(CPxScene* cs, CPxVec3* origin, CPxVec3* unitD
 	return ret;
 }
 
-void CPxScene_release(CPxScene* cs)
+void CPxScene_release(CPxScene cs)
 {
-	static_cast<physx::PxScene*>(cs->obj)->release();
+	static_cast<physx::PxScene*>(cs.obj)->release();
 
-	if (cs->scratchBuffer != NULL)
+	if (cs.scratchBuffer != NULL)
 	{
-		CPxDealloc(cs->scratchBuffer);
-		cs->scratchBuffer = NULL;
+		CPxDealloc(cs.scratchBuffer);
+		cs.scratchBuffer = NULL;
 	}
-
-	CPxDealloc(cs);
 }

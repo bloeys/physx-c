@@ -11,19 +11,18 @@ public:
 	}
 };
 
-CPxFoundation* CPxCreateFoundation()
+CPxFoundation CPxCreateFoundation()
 {
-	CPxFoundation* cpf = (CPxFoundation*)CPxAlloc(sizeof(*cpf));
+	CPxFoundation cpf{};
 
 	static SimpleErrorCallback allocErrCallback;
 
-	cpf->obj = PxCreateFoundation(PX_PHYSICS_VERSION, physxDefaultAlloc, allocErrCallback);
+	cpf.obj = PxCreateFoundation(PX_PHYSICS_VERSION, physxDefaultAlloc, allocErrCallback);
 
 	return cpf;
 }
 
-void CPxFoundation_release(CPxFoundation* cpf)
+void CPxFoundation_release(CPxFoundation cpf)
 {
-	static_cast<physx::PxFoundation*>(cpf->obj)->release();
-	CPxDealloc(cpf);
+	static_cast<physx::PxFoundation*>(cpf.obj)->release();
 }

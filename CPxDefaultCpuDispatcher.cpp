@@ -29,9 +29,9 @@ LONG VectoredContinueHandler(_EXCEPTION_POINTERS* exceptionInfo)
 
 #endif // PX_WINDOWS_FAMILY
 
-CPxDefaultCpuDispatcher* CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32* affinityMasks)
+CPxDefaultCpuDispatcher CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32* affinityMasks)
 {
-	CPxDefaultCpuDispatcher* cdcd = (CPxDefaultCpuDispatcher*)CPxAlloc(sizeof(CPxDefaultCpuDispatcher));
+	CPxDefaultCpuDispatcher cdcd{};
 
 	// @NOTE: For debugging purposes threads can be named, and one way of doing this in Windows is by throwing an
 	// exception with the code 0x406D1388 that gets caught by debuggers :)
@@ -56,7 +56,7 @@ CPxDefaultCpuDispatcher* CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32
 	auto exceptionHandlerHandle = AddVectoredExceptionHandler(1, VectoredExceptionHandler);
 	auto continueHandlerHandle = AddVectoredContinueHandler(1, VectoredContinueHandler);
 
-	cdcd->obj = physx::PxDefaultCpuDispatcherCreate(numThreads, affinityMasks);
+	cdcd.obj = physx::PxDefaultCpuDispatcherCreate(numThreads, affinityMasks);
 	if (exceptionHandlerHandle != NULL) {
 		RemoveVectoredExceptionHandler(exceptionHandlerHandle);
 	}
@@ -68,19 +68,18 @@ CPxDefaultCpuDispatcher* CPxDefaultCpuDispatcherCreate(CPxU32 numThreads, CPxU32
 	return cdcd;
 #endif // PX_WINDOWS_FAMILY
 
-	cdcd->obj = physx::PxDefaultCpuDispatcherCreate(numThreads, affinityMasks);
+	cdcd.obj = physx::PxDefaultCpuDispatcherCreate(numThreads, affinityMasks);
 	return cdcd;
 }
 
-CPxCpuDispatcher* CPxDefaultCpuDispatcher_toCPxCpuDispatcher(CPxDefaultCpuDispatcher* cdcd)
+CPxCpuDispatcher CPxDefaultCpuDispatcher_toCPxCpuDispatcher(CPxDefaultCpuDispatcher cdcd)
 {
-	CPxCpuDispatcher* cCpuDisp = (CPxCpuDispatcher*)CPxAlloc(sizeof(CPxCpuDispatcher));
-	cCpuDisp->obj = cdcd->obj;
+	CPxCpuDispatcher cCpuDisp{};
+	cCpuDisp.obj = cdcd.obj;
 	return cCpuDisp;
 }
 
-void CPxDefaultCpuDispatcher_release(CPxDefaultCpuDispatcher* cdcd)
+void CPxDefaultCpuDispatcher_release(CPxDefaultCpuDispatcher cdcd)
 {
-	static_cast<physx::PxDefaultCpuDispatcher*>(cdcd->obj)->release();
-	CPxDealloc(cdcd);
+	static_cast<physx::PxDefaultCpuDispatcher*>(cdcd.obj)->release();
 }

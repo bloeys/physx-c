@@ -13,28 +13,28 @@ CPxInline physx::PxRigidDynamic* DoPxCreateDynamic(CPxPhysics& sdk, const CPxTra
 		CPxTransform_toPxTransform(shapeOffset));
 }
 
-CPxRigidDynamic* CPxCreateDynamic(CPxPhysics* sdk, CPxTransform* transform, CPxGeometry geometry, CPxMaterial* material, CPxReal density, CPxTransform* shapeOffset)
+CPxRigidDynamic CPxCreateDynamic(CPxPhysics sdk, CPxTransform* transform, CPxGeometry geometry, CPxMaterial material, CPxReal density, CPxTransform* shapeOffset)
 {
-	CPxRigidDynamic* crd = (CPxRigidDynamic*)CPxAlloc(sizeof(CPxRigidDynamic));
+	CPxRigidDynamic crd = {0};
 
 	switch (geometry.type)
 	{
 	case CPxGeometryType_eSPHERE:
-		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxSphereGeometry(static_cast<CPxSphereGeometry*>(geometry.obj)->radius), *material, density, *shapeOffset);
+		crd.obj = DoPxCreateDynamic(sdk, *transform, physx::PxSphereGeometry(static_cast<CPxSphereGeometry*>(geometry.obj)->radius), material, density, *shapeOffset);
 		break;
 	case CPxGeometryType_ePLANE:
-		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxPlaneGeometry(), *material, density, *shapeOffset);
+		crd.obj = DoPxCreateDynamic(sdk, *transform, physx::PxPlaneGeometry(), material, density, *shapeOffset);
 		break;
 	case CPxGeometryType_eCAPSULE:
 	{
 		CPxCapsuleGeometry* ccg = static_cast<CPxCapsuleGeometry*>(geometry.obj);
-		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxCapsuleGeometry(ccg->radius, ccg->halfHeight), *material, density, *shapeOffset);
+		crd.obj = DoPxCreateDynamic(sdk, *transform, physx::PxCapsuleGeometry(ccg->radius, ccg->halfHeight), material, density, *shapeOffset);
 	}
 	break;
 	case CPxGeometryType_eBOX:
 	{
 		CPxBoxGeometry* cbg = static_cast<CPxBoxGeometry*>(geometry.obj);
-		crd->obj = DoPxCreateDynamic(*sdk, *transform, physx::PxBoxGeometry(cbg->hx, cbg->hy, cbg->hz), *material, density, *shapeOffset);
+		crd.obj = DoPxCreateDynamic(sdk, *transform, physx::PxBoxGeometry(cbg->hx, cbg->hy, cbg->hz), material, density, *shapeOffset);
 	}
 	break;
 

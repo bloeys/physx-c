@@ -2,7 +2,7 @@
 #include "CPxActor.h"
 #include "PxPhysicsAPI.h"
 
-void CPxActor_release(CPxActor* ca)
+void CPxActor_release(CPxActor ca)
 {
-	static_cast<physx::PxActor*>(ca->obj)->release();
+	static_cast<physx::PxActor*>(ca.obj)->release();
 }
