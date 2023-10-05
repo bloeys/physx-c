@@ -76,11 +76,11 @@ public:
 	CPxContactPair* contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * contactPairsBufferSize);
 	CPxonContactCallback onContactCb = emptyOnContactCb;
 
-	void onConstraintBreak(physx::PxConstraintInfo* /*constraints*/, physx::PxU32 /*count*/) override { printf("onConstraintBreak\n"); }
-	void onWake(physx::PxActor** /*actors*/, physx::PxU32 /*count*/) override { printf("onWake\n"); }
-	void onSleep(physx::PxActor** /*actors*/, physx::PxU32 /*count*/) override { printf("onSleep\n"); }
-	void onTrigger(physx::PxTriggerPair* /*pairs*/, physx::PxU32 /*count*/) override { printf("onTrigger\n"); }
-	void onAdvance(const physx::PxRigidBody* const* /*bodyBuffer*/, const physx::PxTransform* /*poseBuffer*/, const physx::PxU32 /*count*/) override { printf("onAdvance\n"); }
+	void onConstraintBreak(physx::PxConstraintInfo* /*constraints*/, physx::PxU32 /*count*/) override {}
+	void onWake(physx::PxActor** /*actors*/, physx::PxU32 /*count*/) override {}
+	void onSleep(physx::PxActor** /*actors*/, physx::PxU32 /*count*/) override {}
+	void onTrigger(physx::PxTriggerPair* /*pairs*/, physx::PxU32 /*count*/) override {}
+	void onAdvance(const physx::PxRigidBody* const* /*bodyBuffer*/, const physx::PxTransform* /*poseBuffer*/, const physx::PxU32 /*count*/) override {}
 
 	void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs) override
 	{
@@ -154,21 +154,15 @@ physx::PxFilterFlags CollisionFilterShader(
 	physx::PxFilterObjectAttributes attributes1, physx::PxFilterData filterData1,
 	physx::PxPairFlags& retPairFlags, const void* /*constantBlock*/, physx::PxU32 /*constantBlockSize*/)
 {
-	// let triggers through
+	// Let triggers through
 	if (physx::PxFilterObjectIsTrigger(attributes0) || physx::PxFilterObjectIsTrigger(attributes1))
 	{
 		retPairFlags = physx::PxPairFlag::eTRIGGER_DEFAULT;
 		return physx::PxFilterFlag::eDEFAULT;
 	}
 
-	// generate contacts for all that were not filtered above
-	retPairFlags = physx::PxPairFlag::eCONTACT_DEFAULT;
-
-	// trigger the contact callback for pairs (A,B) where
-	// the filtermask of A contains the ID of B and vice versa.
-	if ((filterData0.word0 & filterData1.word2) && (filterData1.word0 & filterData0.word2) ||
-		(filterData0.word1 & filterData1.word3) && (filterData1.word1 & filterData0.word3))
-		retPairFlags |= physx::PxPairFlag::eNOTIFY_TOUCH_FOUND | physx::PxPairFlag::eNOTIFY_TOUCH_PERSISTS | physx::PxPairFlag::eNOTIFY_TOUCH_LOST | physx::PxPairFlag::eNOTIFY_CONTACT_POINTS;
+	// Generate contacts for all that were not filtered above
+	retPairFlags = physx::PxPairFlag::eCONTACT_DEFAULT | physx::PxPairFlag::eNOTIFY_TOUCH_FOUND | physx::PxPairFlag::eNOTIFY_TOUCH_PERSISTS | physx::PxPairFlag::eNOTIFY_TOUCH_LOST | physx::PxPairFlag::eNOTIFY_CONTACT_POINTS;
 
 	return physx::PxFilterFlag::eDEFAULT;
 }
