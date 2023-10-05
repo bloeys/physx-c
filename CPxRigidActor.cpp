@@ -17,3 +17,15 @@ void CPxRigidActor_setSimFilterData(CPxRigidActor cra, CPxFilterData cfd)
 	}
 	CPxDealloc(shapes);
 }
+
+void CPxRigidActor_set_userData(CSTRUCT CPxRigidActor cra, void* userData)
+{
+	physx::PxRigidActor* actor = static_cast<physx::PxRigidActor*>(cra.obj);
+	actor->userData = userData;
+}
+
+void* CPxRigidActor_get_userData(CSTRUCT CPxRigidActor cra)
+{
+	physx::PxRigidActor* actor = static_cast<physx::PxRigidActor*>(cra.obj);
+	return actor->userData;
+}
