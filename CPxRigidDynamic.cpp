@@ -32,10 +32,40 @@ CPxVec3 CPxRigidDynamic_getLinearVelocity(CPxRigidDynamic crd)
 	return NewCPxVec3(v.x, v.y, v.z);
 }
 
+void CPxRigidDynamic_setLinearVelocity(CPxRigidDynamic crd, CPxVec3 *velocity, bool autoAwake)
+{
+	static_cast<physx::PxRigidDynamic*>(crd.obj)->setLinearVelocity(physx::PxVec3(velocity->x, velocity->y, velocity->z), autoAwake);
+}
+
 CPxVec3 CPxRigidDynamic_getAngularVelocity(CPxRigidDynamic crd)
 {
 	physx::PxVec3 v = static_cast<physx::PxRigidDynamic*>(crd.obj)->getAngularVelocity();
 	return NewCPxVec3(v.x, v.y, v.z);
+}
+
+void CPxRigidDynamic_setAngularVelocity(CPxRigidDynamic crd, CPxVec3 *velocity, bool autoAwake)
+{
+	static_cast<physx::PxRigidDynamic*>(crd.obj)->setAngularVelocity(physx::PxVec3(velocity->x, velocity->y, velocity->z), autoAwake);
+}
+
+CPxReal CPxRigidDynamic_getMaxLinearVelocity(CPxRigidDynamic crd)
+{
+	return  static_cast<physx::PxRigidDynamic*>(crd.obj)->getMaxLinearVelocity();
+}
+
+void CPxRigidDynamic_setMaxLinearVelocity(CPxRigidDynamic crd, CPxReal maxLinearVelocity)
+{
+	static_cast<physx::PxRigidDynamic*>(crd.obj)->setMaxLinearVelocity(maxLinearVelocity);
+}
+
+CPxReal CPxRigidDynamic_getMaxAngularVelocity(CPxRigidDynamic crd)
+{
+	return static_cast<physx::PxRigidDynamic*>(crd.obj)->getMaxAngularVelocity();
+}
+
+void CPxRigidDynamic_setMaxAngularVelocity(CPxRigidDynamic crd, CPxReal maxAngularVelocity)
+{
+	static_cast<physx::PxRigidDynamic*>(crd.obj)->setMaxAngularVelocity(maxAngularVelocity);
 }
 
 void CPxRigidDynamic_setLinearDamping(CPxRigidDynamic crd, CPxReal damping)
