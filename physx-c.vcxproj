@@ -217,6 +217,7 @@
     <ClInclude Include="include\CPxFoundation.h" />
     <ClInclude Include="include\CPxGeometry.h" />
     <ClInclude Include="include\CPxMaterial.h" />
+    <ClInclude Include="include\CPxPairFlag.h" />
     <ClInclude Include="include\CPxPhysics.h" />
     <ClInclude Include="include\CPxPlane.h" />
     <ClInclude Include="include\CPxPvd.h" />
@@ -238,6 +239,8 @@
     <ClInclude Include="include\CPxSphereGeometry.h" />
     <ClInclude Include="include\CPxTolerancesScale.h" />
     <ClInclude Include="include\CPxTransform.h" />
+    <ClInclude Include="include\CPxTriggerPair.h" />
+    <ClInclude Include="include\CPxTriggerPairFlag.h" />
     <ClInclude Include="include\CPxVec3.h" />
     <ClInclude Include="CPxDefaultAllocator.h" />
   </ItemGroup>

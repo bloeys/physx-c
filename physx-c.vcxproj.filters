@@ -212,5 +212,14 @@
     <ClInclude Include="include\CPxRaycastBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\CPxTriggerPair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxPairFlag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPxTriggerPairFlag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

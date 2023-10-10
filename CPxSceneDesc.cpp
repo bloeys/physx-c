@@ -1,11 +1,30 @@
 #include <PxPhysicsAPI.h>
 #include "CPxSceneDesc.h"
+#include "CPxTriggerPair.h"
 #include "CPxDefaultAllocator.h"
 #include "CPxContactPairHeader.h"
 
 void emptyOnContactCb(void*) {};
+void emptyOnTriggerCb(void*, CPxU32) {};
 
 class SimEventCallback : public physx::PxSimulationEventCallback {
+
+public:
+
+	// onTrigger callback stuff
+	CPxOnTriggerCallback onTriggerCb = emptyOnTriggerCb;
+
+	int triggerPairsBufferSize = 100;
+	CPxTriggerPair* triggerPairsBuffer = (CPxTriggerPair*)CPxAlloc(sizeof(CPxTriggerPair) * triggerPairsBufferSize);
+
+	// onContact callback stuff
+	CPxOnContactCallback onContactCb = emptyOnContactCb;
+
+	int contactPairsBufferSize = 100;
+	CPxContactPair* contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * contactPairsBufferSize);
+
+	CPxU32 contactPairPointBufferSize = 256;
+	CPxContactPairPoint* contactPairPointsBuffer = (CPxContactPairPoint*)CPxAlloc(sizeof(CPxContactPairPoint) * contactPairPointBufferSize);
 
 private:
 	//C version of PxContactPair::extractContacts that has the same c++ logic but CPx types. We do this so we don't have to copy data twice by running PxContactPair::extractContacts then copying the produced C++ structs into C
@@ -69,21 +88,46 @@ private:
 
 public:
 
-	int contactPairPointBufferSize = 256;
-	CPxContactPairPoint* contactPairPointsBuffer = (CPxContactPairPoint*)CPxAlloc(sizeof(CPxContactPairPoint) * contactPairPointBufferSize);
-
-	int contactPairsBufferSize = 100;
-	CPxContactPair* contactPairsBuffer = (CPxContactPair*)CPxAlloc(sizeof(CPxContactPair) * contactPairsBufferSize);
-	CPxonContactCallback onContactCb = emptyOnContactCb;
-
 	void onConstraintBreak(physx::PxConstraintInfo* /*constraints*/, physx::PxU32 /*count*/) override {}
 	void onWake(physx::PxActor** /*actors*/, physx::PxU32 /*count*/) override {}
 	void onSleep(physx::PxActor** /*actors*/, physx::PxU32 /*count*/) override {}
-	void onTrigger(physx::PxTriggerPair* /*pairs*/, physx::PxU32 /*count*/) override {}
 	void onAdvance(const physx::PxRigidBody* const* /*bodyBuffer*/, const physx::PxTransform* /*poseBuffer*/, const physx::PxU32 /*count*/) override {}
+	
+	void onTrigger(physx::PxTriggerPair* pairs, physx::PxU32 count) override 
+	{
+
+		if (count > triggerPairsBufferSize) {
+			CPxDealloc(triggerPairsBuffer);
+			triggerPairsBuffer = (CPxTriggerPair*)CPxAlloc(sizeof(CPxTriggerPair) * count);
+			triggerPairsBufferSize = count;
+		}
+
+		CPxU32 finalCount = 0;
+		for (CPxU32 i = 0; i < count; i++)
+		{
+			// ignore pairs when shapes have been deleted
+			if (pairs[i].flags & (physx::PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER | physx::PxTriggerPairFlag::eREMOVED_SHAPE_OTHER))
+				continue;
+
+			CPxTriggerPair tp{};
+			tp.triggerShape.obj = pairs[i].triggerShape;
+			tp.triggerActor.obj = pairs[i].triggerActor;
+			tp.otherShape.obj = pairs[i].otherShape;
+			tp.otherActor.obj = pairs[i].otherActor;
+			tp.status = static_cast<CPxPairFlag>(pairs[i].status);
+			tp.flags = static_cast<CPxTriggerPairFlag>(static_cast<CPxU32>(pairs[i].flags));
+
+			triggerPairsBuffer[finalCount++] = tp;
+		}
+
+		onTriggerCb(triggerPairsBuffer, finalCount);
+	}
 
 	void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs) override
 	{
+		if (pairHeader.flags & (physx::PxContactPairHeaderFlag::eREMOVED_ACTOR_0 | physx::PxContactPairHeaderFlag::eREMOVED_ACTOR_1))
+			return;
+
 		//PERF: Can we do something better than a copy?
 		CPxContactPairHeader cph;
 		cph.actors[0].obj = pairHeader.actors[0];
@@ -92,7 +136,7 @@ public:
 		cph.extraDataStream = (CPxU8*)pairHeader.extraDataStream;
 		cph.extraDataStreamSize = pairHeader.extraDataStreamSize;
 
-		uint32_t f = static_cast<uint32_t>(pairHeader.flags);
+		uint32_t f = static_cast<CPxU32>(pairHeader.flags);
 		cph.flags = static_cast<CPxContactPairHeaderFlag>(f);
 
 		//Ensure pairs buffer is big enough
@@ -105,8 +149,8 @@ public:
 
 		//PERF: Maybe use a different way so we don't loop twice?
 		//Ensure contacts buffer is big enough
-		int totalContactPoints = 0;
-		for (int i = 0; i < nbPairs; i++)
+		CPxU32 totalContactPoints = 0;
+		for (CPxU32 i = 0; i < nbPairs; i++)
 			totalContactPoints += pairHeader.pairs[i].contactCount;
 
 		if (totalContactPoints > contactPairPointBufferSize)
@@ -116,9 +160,9 @@ public:
 			contactPairPointBufferSize = totalContactPoints;
 		}
 
-		int currPoint = 0;
+		CPxU32 currPoint = 0;
 		cph.pairs = contactPairsBuffer;
-		for (int i = 0; i < nbPairs; i++)
+		for (CPxU32 i = 0; i < nbPairs; i++)
 		{
 			cph.pairs[i].contactCount = pairHeader.pairs[i].contactCount;
 			cph.pairs[i].contactImpulses = (CPxReal*)pairHeader.pairs[i].contactImpulses;
@@ -133,7 +177,7 @@ public:
 			currPoint += cph.pairs[i].contactCount;
 
 			f = static_cast<uint32_t>(pairHeader.pairs[i].events);
-			cph.pairs[i].events = static_cast<CPxPairFlags>(f);
+			cph.pairs[i].events = static_cast<CPxPairFlag>(f);
 
 			f = static_cast<uint32_t>(pairHeader.pairs[i].flags);
 			cph.pairs[i].flags = static_cast<CPxContactPairFlag>(f);
@@ -198,9 +242,14 @@ void CPxSceneDesc_set_cpuDispatcher(CPxSceneDesc csd, CPxCpuDispatcher cDefDispa
 	static_cast<physx::PxSceneDesc*>(csd.obj)->cpuDispatcher = static_cast<physx::PxCpuDispatcher*>(cDefDispatcher.obj);
 }
 
-void CPxSceneDesc_set_onContactCallback(CPxSceneDesc csd, CPxonContactCallback cb)
+void CPxSceneDesc_set_onContactCallback(CPxSceneDesc csd, CPxOnContactCallback cb)
 {
 	static_cast<SimEventCallback*>(static_cast<physx::PxSceneDesc*>(csd.obj)->simulationEventCallback)->onContactCb = cb;
+}
+
+void CPxSceneDesc_set_onTriggerCallback(CPxSceneDesc csd, CPxOnTriggerCallback cb)
+{
+	static_cast<SimEventCallback*>(static_cast<physx::PxSceneDesc*>(csd.obj)->simulationEventCallback)->onTriggerCb = cb;
 }
 
 void FreeCPxSceneDesc(CPxSceneDesc cSceneDesc)
